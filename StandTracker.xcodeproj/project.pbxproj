@@ -14,6 +14,8 @@
 		9CDD81BC1B004BEE00670CFE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDD81BA1B004BEE00670CFE /* LaunchScreen.xib */; };
 		9CDD81C81B004BEE00670CFE /* StandTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDD81C71B004BEE00670CFE /* StandTrackerTests.swift */; };
 		9CDD81D21B004C6300670CFE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDD81D11B004C6300670CFE /* Extensions.swift */; };
+		9CDF29461B0ACF8F00CA896B /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDF29451B0ACF8F00CA896B /* UserInfoViewController.swift */; };
+		9CDF29481B0AE0B200CA896B /* a.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CDF29471B0AE0B200CA896B /* a.png */; };
 		9CEA15DA1B05A173006D5706 /* BarCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA15D91B05A173006D5706 /* BarCodeScanner.swift */; };
 		9CF21B501B096A8A0009F91D /* ConnectionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF21B4F1B096A8A0009F91D /* ConnectionDetector.swift */; };
 		9CF21B541B0989250009F91D /* AlertDialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF21B531B0989250009F91D /* AlertDialogs.swift */; };
@@ -43,8 +45,10 @@
 		9CDD81C61B004BEE00670CFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CDD81C71B004BEE00670CFE /* StandTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandTrackerTests.swift; sourceTree = "<group>"; };
 		9CDD81D11B004C6300670CFE /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9CDF29441B0ACDBE00CA896B /* StandTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StandTracker-Bridging-Header.h"; sourceTree = "<group>"; };
+		9CDF29451B0ACF8F00CA896B /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		9CDF29471B0AE0B200CA896B /* a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = a.png; sourceTree = "<group>"; };
 		9CEA15D91B05A173006D5706 /* BarCodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarCodeScanner.swift; sourceTree = "<group>"; };
-		9CF21B491B0961CF0009F91D /* StandTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StandTracker-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		9CF21B4D1B0962910009F91D /* CommonCryptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonCryptor.h; sourceTree = "<group>"; };
 		9CF21B4F1B096A8A0009F91D /* ConnectionDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionDetector.swift; sourceTree = "<group>"; };
 		9CF21B531B0989250009F91D /* AlertDialogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDialogs.swift; sourceTree = "<group>"; };
@@ -95,7 +99,9 @@
 				9CDD81B31B004BEE00670CFE /* LoginViewController.swift */,
 				9CF21B571B09B36D0009F91D /* ScannerContainerViewController.swift */,
 				9CEA15D91B05A173006D5706 /* BarCodeScanner.swift */,
+				9CDF29451B0ACF8F00CA896B /* UserInfoViewController.swift */,
 				9CF21B531B0989250009F91D /* AlertDialogs.swift */,
+				9CDF29471B0AE0B200CA896B /* a.png */,
 				9CF21B521B096B470009F91D /* Extensions */,
 				9CF21B511B096A8F0009F91D /* HTTPFunctions */,
 				9CF21B4E1B0962CF0009F91D /* Encryptor */,
@@ -136,7 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				9CF21B4D1B0962910009F91D /* CommonCryptor.h */,
-				9CF21B491B0961CF0009F91D /* StandTracker-Bridging-Header.h */,
+				9CDF29441B0ACDBE00CA896B /* StandTracker-Bridging-Header.h */,
 			);
 			name = Encryptor;
 			sourceTree = "<group>";
@@ -239,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CDD81B71B004BEE00670CFE /* Main.storyboard in Resources */,
+				9CDF29481B0AE0B200CA896B /* a.png in Resources */,
 				9CDD81BC1B004BEE00670CFE /* LaunchScreen.xib in Resources */,
 				9CDD81B91B004BEE00670CFE /* Images.xcassets in Resources */,
 			);
@@ -262,6 +269,7 @@
 				9CEA15DA1B05A173006D5706 /* BarCodeScanner.swift in Sources */,
 				9CF21B561B098B480009F91D /* JsonToRealm.swift in Sources */,
 				9CF21B581B09B36D0009F91D /* ScannerContainerViewController.swift in Sources */,
+				9CDF29461B0ACF8F00CA896B /* UserInfoViewController.swift in Sources */,
 				9CDD81D21B004C6300670CFE /* Extensions.swift in Sources */,
 				9CDD81B21B004BEE00670CFE /* AppDelegate.swift in Sources */,
 				9CF21B541B0989250009F91D /* AlertDialogs.swift in Sources */,
