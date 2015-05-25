@@ -42,27 +42,18 @@ class AlertDialogs: NSObject, UIAlertViewDelegate {
 
     
     // ALERT WITH TEXTFIELD FOR iOs7 and iOs8
-    func showPingAlertView(title: String, message: String, viewController: UIViewController) {
+    func showAlertView(title: String, message: String, viewController: UIViewController) {
         var alert = UIAlertView()
         alert.delegate = self
         alert.title = title
-        alert.alertViewStyle = .PlainTextInput
-        let textField = alert.textFieldAtIndex(0)
         alert.addButtonWithTitle("OK")
-        textField?.text = message
-        alert.addButtonWithTitle("Cancel")
+
         alert.show()
     }
     internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {
         case 0:
             println("OK \(buttonIndex)")
-            
-            // Send PING MESSAGE function here
-            
-            break;
-        case 1:
-            println("CANCEL \(buttonIndex)")
             break;
         default: ()
         println("DEFAULT \(buttonIndex)")

@@ -16,12 +16,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var txtUsername: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
-
     
     let secureID = "manager"
     let deviceName = UIDevice.currentDevice().name
     let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
     var salt = "5d534e77a8c480d924bb75dd46a216bc08a587a7"
+    
+    
+    var userName = "andrew"
+    var password = "sample123"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +91,8 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func actionLogin(sender: AnyObject) {
-        performSegueWithIdentifier("toScanner", sender: self.btnLogin)
+        dummyLogin()
+//        performSegueWithIdentifier("toScanner", sender: self.btnLogin)
         if ConnectionDetector.isConnectedToNetwork() {
 //            performSegueWithIdentifier("toScanner", sender: self.btnLogin)
         }else {
@@ -96,6 +100,19 @@ class LoginViewController: UIViewController {
         }
         
     }
+    
+    func dummyLogin() {
+        
+        if txtUsername.text == "" || txtPassword.text == "" {
+            alert.showAlertView("Account not found", message: "", viewController: self)
+        }else if txtUsername.text != userName || txtPassword.text != password {
+            alert.showAlertView("Account not found", message: "", viewController: self)
+        }else {
+            performSegueWithIdentifier("toScanner", sender: self.btnLogin)
+        }
+        
+    }
+    
     
     func loginfunc() {
         JsonToRealm.postLogin(["username":txtUsername.text,

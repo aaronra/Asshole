@@ -9,15 +9,17 @@
 import UIKit
 import AVFoundation
 
-class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate {
     
     @IBOutlet var vcScanner: UIView!
-//    @IBOutlet weak var messageLabel:UILabel!
     @IBOutlet var uiview: UIView!
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
+    var scannedData = ""
+    var fetchedArray = Array<String>()
+    let settKey = NSUserDefaults.standardUserDefaults()
     
     // Added to support different barcodes
     let supportedBarCodes = [AVMetadataObjectTypeUPCECode,
@@ -35,6 +37,7 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         AVMetadataObjectTypeDataMatrixCode]
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video
         // as the media type parameter.
@@ -83,56 +86,83 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         view.bringSubviewToFront(qrCodeFrameView!)
     }
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        
+
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection:
+        AVCaptureConnection!) {
+
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects == nil || metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRectZero
-//            messageLabel.text = "No QR code is detected"
+            println("NO QR Detected")
+            scannedData = ""
             return
         }
         
         // Get the metadata object.
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         
-        // Here we use filter method to check if the type of metadataObj is supported
-        // Instead of hardcoding the AVMetadataObjectTypeQRCode, we check if the type
-        // can be found in the array of supported bar codes.
         if supportedBarCodes.filter({ $0 == metadataObj.type }).count > 0 {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
             let barCodeObject = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
             qrCodeFrameView?.frame = barCodeObject.bounds
             
             if metadataObj.stringValue != nil {
-//                messageLabel.text = metadataObj.stringValue
-                launchApp(metadataObj.stringValue)
+                if scannedData != metadataObj.stringValue {
+                    showAlertView("Scanned", message: metadataObj.stringValue, viewController: self)
+                    scannedData = metadataObj.stringValue
+                    captureSession?.stopRunning()
+                }
             }
         }
     }
     
-    func launchApp(decodedURL: String) {
-//        let alertPrompt = UIAlertController(title: "Open App", message: "You're going to open \(decodedURL)", preferredStyle: .ActionSheet)
-        //        let confirmAction = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-        //
-        //            if let url = NSURL(string: decodedURL) {
-        //                if UIApplication.sharedApplication().canOpenURL(url) {
-        //                    UIApplication.sharedApplication().openURL(url)
-        //                }
-        //            }
-        //        })
-        //        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-        //
-        //        alertPrompt.addAction(confirmAction)
-        //        alertPrompt.addAction(cancelAction)
-        //
-        //        self.presentViewController(alertPrompt, animated: true, completion: nil)
+    func showAlertView(title: String, message: String, viewController: UIViewController) {
+        var alert = UIAlertView()
+        alert.delegate = self
+        alert.title = title
+        alert.message = message
+        alert.addButtonWithTitle("OK")
+        alert.show()
         
-        println(decodedURL)
-        
-        
+        fetchData(message)
+    
+    }
+    
+    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        switch buttonIndex {
+        case 0:
+            
+            
+            
+        performSegueWithIdentifier("toUserInfo", sender: self)
+            break;
+        default: ()
+        }
     }
     
     
+    func fetchData(id: String) {
+        
+        JsonToRealm.fetchData(["":""], url: "http://ep.stg.ozaccom.com.au/app_content/ajax/public.ashx?type=stand_tracker&op=delegate_view&event_id=66&user_id=\(id)") { (code: String, details: [String], sessionID: String, clientID: String) -> () in
+            self.fetchedArray = details
+        }
+    }
+    
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toUserInfo" {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let userDetailController = navigationController.topViewController as! UserInfoViewController
+            userDetailController.scannedData = scannedData
+            userDetailController.arrayOfInfo = fetchedArray
+            
+            println("---fetch--->>> \(fetchedArray)")
+        }
+    }
+    
+    
+
     func allAboutUI() {
         vcScanner.backgroundColor = UIColor(hex: 0x0C46A0)
     }
