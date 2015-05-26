@@ -15,7 +15,7 @@ class ScannerContainerViewController: UIViewController {
     @IBOutlet var vcContainer: UIView!
     @IBOutlet weak var txtCompany: UILabel!
     @IBOutlet weak var txtOwner: UILabel!
-    
+    @IBOutlet weak var btnMenu: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,7 @@ class ScannerContainerViewController: UIViewController {
         
         txtCompany.textColor = UIColor.whiteColor()
         txtOwner.textColor = UIColor.whiteColor()
+        btnMenu.hidden = true
 
     }
 }

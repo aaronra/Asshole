@@ -22,6 +22,8 @@
 		9CF21B541B0989250009F91D /* AlertDialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF21B531B0989250009F91D /* AlertDialogs.swift */; };
 		9CF21B561B098B480009F91D /* JsonToRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF21B551B098B480009F91D /* JsonToRealm.swift */; };
 		9CF21B581B09B36D0009F91D /* ScannerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF21B571B09B36D0009F91D /* ScannerContainerViewController.swift */; };
+		9CF9952A1B13F1E4009F015A /* PopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF995291B13F1E4009F015A /* PopOver.swift */; };
+		9CF9952C1B13FA3D009F015A /* EditQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9952B1B13FA3D009F015A /* EditQuestionViewController.swift */; };
 		D62A6B3EEA39B136E1A2F40F /* Pods_StandTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFF0F40ED2B80EC4F643A0C /* Pods_StandTracker.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,8 @@
 		9CF21B531B0989250009F91D /* AlertDialogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDialogs.swift; sourceTree = "<group>"; };
 		9CF21B551B098B480009F91D /* JsonToRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonToRealm.swift; sourceTree = "<group>"; };
 		9CF21B571B09B36D0009F91D /* ScannerContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerContainerViewController.swift; sourceTree = "<group>"; };
+		9CF995291B13F1E4009F015A /* PopOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOver.swift; sourceTree = "<group>"; };
+		9CF9952B1B13FA3D009F015A /* EditQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditQuestionViewController.swift; sourceTree = "<group>"; };
 		C71A6B8730E2A1412CB39F66 /* Pods-StandTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StandTracker/Pods-StandTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +107,7 @@
 			children = (
 				9CDF29451B0ACF8F00CA896B /* UserInfoViewController.swift */,
 				9CB64C4D1B0DA5F400F5294B /* QuestionViewController.swift */,
+				9CF9952B1B13FA3D009F015A /* EditQuestionViewController.swift */,
 				9CB64C481B0D6DBD00F5294B /* CellDetails.swift */,
 			);
 			name = DelegateDetails;
@@ -136,6 +141,7 @@
 				9CF21B571B09B36D0009F91D /* ScannerContainerViewController.swift */,
 				9CEA15D91B05A173006D5706 /* BarCodeScanner.swift */,
 				9CF21B531B0989250009F91D /* AlertDialogs.swift */,
+				9CF995291B13F1E4009F015A /* PopOver.swift */,
 				9CB64C4A1B0D6EA400F5294B /* DelegateDetails */,
 				9CF21B521B096B470009F91D /* Extensions */,
 				9CF21B511B096A8F0009F91D /* HTTPFunctions */,
@@ -350,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CF9952C1B13FA3D009F015A /* EditQuestionViewController.swift in Sources */,
 				9CDD81B41B004BEE00670CFE /* LoginViewController.swift in Sources */,
 				9CEA15DA1B05A173006D5706 /* BarCodeScanner.swift in Sources */,
 				9CF21B561B098B480009F91D /* JsonToRealm.swift in Sources */,
@@ -357,6 +364,7 @@
 				9CB64C491B0D6DBD00F5294B /* CellDetails.swift in Sources */,
 				9CDF29461B0ACF8F00CA896B /* UserInfoViewController.swift in Sources */,
 				9CDD81D21B004C6300670CFE /* Extensions.swift in Sources */,
+				9CF9952A1B13F1E4009F015A /* PopOver.swift in Sources */,
 				9CDD81B21B004BEE00670CFE /* AppDelegate.swift in Sources */,
 				9CF21B541B0989250009F91D /* AlertDialogs.swift in Sources */,
 				9CF21B501B096A8A0009F91D /* ConnectionDetector.swift in Sources */,

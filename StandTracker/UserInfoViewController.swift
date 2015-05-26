@@ -19,8 +19,8 @@ class UserInfoViewController: UIViewController, UITableViewDelegate {
     var scannedData = ""
     
     var arrayOfDetail = ["First Name", "Last Name", "Company", "Position", "Mobile"]
-    var arrayOfInfo = Array<String>()
-//    var arrayOfInfo = ["UnangLAgyu", "Apilyidu", "Boy Bawang", "Security", "0000 0 00 00"]
+//    var arrayOfInfo = Array<String>()
+    var arrayOfInfo = ["Sample name", "Sample name", "sample Company", "Security", "0000 0 00 00"]
 
     
     override func viewDidLoad() {
@@ -47,6 +47,14 @@ class UserInfoViewController: UIViewController, UITableViewDelegate {
     @IBAction func back(sender: AnyObject) {
         performSegueWithIdentifier("toScanner", sender: self)
     }
+    
+    
+    func itemSelected(selectedData: String){
+
+        println("---->>>> \(selectedData)")
+
+    }
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return arrayOfDetail.count
