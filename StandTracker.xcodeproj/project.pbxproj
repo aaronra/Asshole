@@ -22,6 +22,7 @@
 		9CF21B541B0989250009F91D /* AlertDialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF21B531B0989250009F91D /* AlertDialogs.swift */; };
 		9CF21B561B098B480009F91D /* JsonToRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF21B551B098B480009F91D /* JsonToRealm.swift */; };
 		9CF21B581B09B36D0009F91D /* ScannerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF21B571B09B36D0009F91D /* ScannerContainerViewController.swift */; };
+		9CF67F991B15A4120064361A /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF67F981B15A4120064361A /* SampleViewController.swift */; };
 		9CF9952A1B13F1E4009F015A /* PopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF995291B13F1E4009F015A /* PopOver.swift */; };
 		9CF9952C1B13FA3D009F015A /* EditQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF9952B1B13FA3D009F015A /* EditQuestionViewController.swift */; };
 		D62A6B3EEA39B136E1A2F40F /* Pods_StandTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFF0F40ED2B80EC4F643A0C /* Pods_StandTracker.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -61,6 +62,7 @@
 		9CF21B531B0989250009F91D /* AlertDialogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDialogs.swift; sourceTree = "<group>"; };
 		9CF21B551B098B480009F91D /* JsonToRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonToRealm.swift; sourceTree = "<group>"; };
 		9CF21B571B09B36D0009F91D /* ScannerContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerContainerViewController.swift; sourceTree = "<group>"; };
+		9CF67F981B15A4120064361A /* SampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
 		9CF995291B13F1E4009F015A /* PopOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOver.swift; sourceTree = "<group>"; };
 		9CF9952B1B13FA3D009F015A /* EditQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditQuestionViewController.swift; sourceTree = "<group>"; };
 		C71A6B8730E2A1412CB39F66 /* Pods-StandTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StandTracker/Pods-StandTracker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				9CDD81B81B004BEE00670CFE /* Images.xcassets */,
 				9CDD81BA1B004BEE00670CFE /* LaunchScreen.xib */,
 				9CDD81AF1B004BEE00670CFE /* Supporting Files */,
+				9CF67F981B15A4120064361A /* SampleViewController.swift */,
 			);
 			path = StandTracker;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				9CF21B561B098B480009F91D /* JsonToRealm.swift in Sources */,
 				9CF21B581B09B36D0009F91D /* ScannerContainerViewController.swift in Sources */,
 				9CB64C491B0D6DBD00F5294B /* CellDetails.swift in Sources */,
+				9CF67F991B15A4120064361A /* SampleViewController.swift in Sources */,
 				9CDF29461B0ACF8F00CA896B /* UserInfoViewController.swift in Sources */,
 				9CDD81D21B004C6300670CFE /* Extensions.swift in Sources */,
 				9CF9952A1B13F1E4009F015A /* PopOver.swift in Sources */,
@@ -503,6 +507,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b00feafc-7f0a-4672-8d8e-bcce37c57b0e";
 				SWIFT_OBJC_BRIDGING_HEADER = "StandTracker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -518,6 +523,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b00feafc-7f0a-4672-8d8e-bcce37c57b0e";
 				SWIFT_OBJC_BRIDGING_HEADER = "StandTracker-Bridging-Header.h";
 			};
 			name = Release;
