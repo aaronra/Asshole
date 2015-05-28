@@ -260,6 +260,7 @@
 				TargetAttributes = {
 					9CDD81AB1B004BEE00670CFE = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 826GYCV8FQ;
 					};
 					9CDD81C01B004BEE00670CFE = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -503,11 +504,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = StandTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b00feafc-7f0a-4672-8d8e-bcce37c57b0e";
+				PROVISIONING_PROFILE = "a3981165-3202-404f-af20-5159999142f3";
 				SWIFT_OBJC_BRIDGING_HEADER = "StandTracker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -519,11 +522,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = StandTracker/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b00feafc-7f0a-4672-8d8e-bcce37c57b0e";
+				PROVISIONING_PROFILE = "a3981165-3202-404f-af20-5159999142f3";
 				SWIFT_OBJC_BRIDGING_HEADER = "StandTracker-Bridging-Header.h";
 			};
 			name = Release;
