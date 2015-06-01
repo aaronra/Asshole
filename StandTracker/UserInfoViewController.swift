@@ -8,19 +8,25 @@
 
 import UIKit
 
-class UserInfoViewController: UIViewController, UITableViewDelegate {
+class UserInfoViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
 
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var uiView: UIView!
     @IBOutlet weak var tblView: UITableView!
-    @IBOutlet weak var containerView: UIView!
+
+
+    @IBOutlet weak var txtAnswer1: UITextField!
+    @IBOutlet weak var txtAnswer2: UITextField!
+    @IBOutlet weak var txtAnswer3: UITextField!
+    @IBOutlet weak var txtAnswer4: UITextField!
+    @IBOutlet weak var txtAnswer5: UITextField!
     
     var scannedData = ""
     
     var arrayOfDetail = ["First Name", "Last Name", "Company", "Position", "Mobile"]
-    var arrayOfInfo = Array<String>()
-//    var arrayOfInfo = ["Sample name", "Sample name", "sample Company", "Security", "0000 0 00 00"]
+//    var arrayOfInfo = Array<String>()
+    var arrayOfInfo = ["Sample name", "Sample name", "sample Company", "Security", "0000 0 00 00"]
 
     
     override func viewDidLoad() {
@@ -94,11 +100,27 @@ class UserInfoViewController: UIViewController, UITableViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    
     func keyboardWasShown(notification: NSNotification) {
         var info: Dictionary = notification.userInfo!
         var keyboardSize: CGSize = (info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size)!
-        var buttonOrigin: CGPoint = self.containerView.frame.origin;
-        var buttonHeight: CGFloat = self.containerView.frame.size.height;
+        
+        if txtAnswer1.selected {
+            println("txt1")
+        }else if txtAnswer2.selected {
+            println("txt2")
+        }else if txtAnswer3.selected {
+            println("txt3")
+        }else if txtAnswer4.selected {
+            println("txt4")
+        }else if txtAnswer5.selected {
+            println("txt5")
+        }else {
+            println("ASA KA ULUL")
+        }
+        
+        var buttonOrigin: CGPoint = self.txtAnswer4.frame.origin;
+        var buttonHeight: CGFloat = self.txtAnswer4.frame.size.height;
         var visibleRect: CGRect = self.view.frame
         visibleRect.size.height -= keyboardSize.height
         
@@ -110,10 +132,11 @@ class UserInfoViewController: UIViewController, UITableViewDelegate {
     
     func hideKeyboard() {
 //        txtQone.resignFirstResponder()   //FirstResponder's must be resigned for hiding keyboard.
-//        txtQtwo.resignFirstResponder()
-//        txtQthree.resignFirstResponder()
-//        txtQfour.resignFirstResponder()
-//        txtQfive.resignFirstResponder()
+        txtAnswer1.resignFirstResponder()
+        txtAnswer2.resignFirstResponder()
+        txtAnswer3.resignFirstResponder()
+        txtAnswer4.resignFirstResponder()
+        txtAnswer5.resignFirstResponder()
         self.scrollView.setContentOffset(CGPointZero, animated: true)
     }
 
