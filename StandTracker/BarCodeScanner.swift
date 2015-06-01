@@ -120,7 +120,7 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
         var alert = UIAlertView()
         alert.delegate = self
         alert.title = title
-        alert.message = message
+//        alert.message = message
         alert.addButtonWithTitle("OK")
         alert.show()
         
@@ -143,7 +143,7 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
     
     func fetchData(id: String) {
         
-        JsonToRealm.fetchData(["":""], url: "http://ep.stg.ozaccom.com.au/app_content/ajax/public.ashx?type=stand_tracker&op=delegate_view&event_id=66&user_id=\(id)") { (code: String, details: [String], sessionID: String, clientID: String) -> () in
+        JsonToRealm.fetchData(["":""], url: "http://ep.test.ozaccom.com.au/app_content/ajax/public.ashx?type=stand_tracker&op=delegate_view&event_id=66&user_id=\(id)") { (code: String, details: [String], sessionID: String, clientID: String) -> () in
             self.fetchedArray = details
         }
     }
