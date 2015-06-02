@@ -15,7 +15,6 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
     @IBOutlet var uiView: UIView!
     @IBOutlet weak var tblView: UITableView!
 
-
     @IBOutlet weak var txtAnswer1: UITextField!
     @IBOutlet weak var txtAnswer2: UITextField!
     @IBOutlet weak var txtAnswer3: UITextField!
@@ -26,19 +25,35 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
     
     var arrayOfDetail = ["First Name", "Last Name", "Company", "Position", "Mobile"]
 //    var arrayOfInfo = Array<String>()
-    var arrayOfInfo = ["Sample name", "Sample name", "sample Company", "Security", "0000 0 00 00"]
+    var arrayOfInfo = ["Sample name", "Sample lastname", "sample Company", "Security", "0000 0 00 00"]
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         allAboutUI()
-
+        
+//        txtAnswer1.delegate = self
+//        txtAnswer2.delegate = self
+//        txtAnswer3.delegate = self
+//        txtAnswer4.delegate = self
+//        txtAnswer5.delegate = self
+        
+        txtAnswer1.tag = 1
+        
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = false
         scrollView.addGestureRecognizer(tapGesture)
-
+        
+        
+        if txtAnswer1.tag == 1 {
+            println("selectde")
+        }
+        
     }
+    
+    
+    
     
     
     func allAboutUI() {
@@ -86,7 +101,6 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
     override func viewWillDisappear(animated: Bool) {
         self.deregisterFromKeyboardNotifications()
         super.viewWillDisappear(true)
-        
     }
     
     func registerForKeyboardNotifications() -> Void {
@@ -105,22 +119,9 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
         var info: Dictionary = notification.userInfo!
         var keyboardSize: CGSize = (info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size)!
         
-        if txtAnswer1.selected {
-            println("txt1")
-        }else if txtAnswer2.selected {
-            println("txt2")
-        }else if txtAnswer3.selected {
-            println("txt3")
-        }else if txtAnswer4.selected {
-            println("txt4")
-        }else if txtAnswer5.selected {
-            println("txt5")
-        }else {
-            println("ASA KA ULUL")
-        }
         
-        var buttonOrigin: CGPoint = self.txtAnswer4.frame.origin;
-        var buttonHeight: CGFloat = self.txtAnswer4.frame.size.height;
+        var buttonOrigin: CGPoint = self.txtAnswer2.frame.origin;
+        var buttonHeight: CGFloat = self.txtAnswer2.frame.size.height;
         var visibleRect: CGRect = self.view.frame
         visibleRect.size.height -= keyboardSize.height
         

@@ -22,9 +22,7 @@ class LoginViewController: UIViewController {
     let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
     var salt = "5d534e77a8c480d924bb75dd46a216bc08a587a7"
     
-    
-    var userName = "andrew"
-    var password = "sample123"
+    var loginURL = "http://ep.test.ozaccom.com.au/app_content/ajax/public.ashx?type=stand_tracker&op=staff_login&"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +32,9 @@ class LoginViewController: UIViewController {
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = false
         scrollView.addGestureRecognizer(tapGesture)
+        
+        println("Changeme123".sha1())
+        
     }
     
     
@@ -91,56 +92,51 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func actionLogin(sender: AnyObject) {
-        dummyLogin()
-//        performSegueWithIdentifier("toScanner", sender: self.btnLogin)
         if ConnectionDetector.isConnectedToNetwork() {
-//            performSegueWithIdentifier("toScanner", sender: self.btnLogin)
+//            loginfunc()
         }else {
              alert.alertLogin("No Internet Connection", viewController: self)
         }
-        
     }
     
-    func dummyLogin() {
-        
-        if txtUsername.text == "" || txtPassword.text == "" {
-            alert.showAlertView("Account not found", message: "", viewController: self)
-        }else if txtUsername.text != userName || txtPassword.text != password {
-            alert.showAlertView("Account not found", message: "", viewController: self)
-        }else {
-            performSegueWithIdentifier("toScanner", sender: self.btnLogin)
-        }
-        
-    }
+//    func loginfunc() {
+//        if txtUsername.text == "" || txtPassword.text == "" {
+//            alert.showAlertView("Account not found", message: "", viewController: self)
+//        }else if txtUsername.text != userName || txtPassword.text != password {
+//            alert.showAlertView("Account not found", message: "", viewController: self)
+//        }else {
+//            JsonToRealm.postLogin(["":""],url: loginURL+"username=\(txtUsername.text)&password=\(txtPassword.text)") { (code: String, msg: String, sessionID: String, clientID: String) -> () in
+//                
+//                if code == "error" {
+//                    println(msg)
+//                    self.alert.alertLogin(msg, viewController: self)
+//                } else if code == "success" {
+//                    var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
+//                    dispatch_after(time, dispatch_get_main_queue()) {
+//                        self.performSegueWithIdentifier("toScanner", sender: self.btnLogin)
+//                    }
+//                }else {
+//                    println("ERROR")
+//                }
+//            }
+//        }
+//        
+//    }
     
     
-    func loginfunc() {
-        JsonToRealm.postLogin(["username":txtUsername.text,
-            "password":(salt+txtPassword.text).sha1(),
-            "secureID":secureID.md5,
-            "devicename": deviceName,
-            "deviceID": deviceID],
-            url: "http://10.1.100.69:90/clients/login.json") { (code: Int, msg: String, sessionID: String, clientID: String) -> () in
-                
-                if code == 500 {
-                    println(msg)
-                    self.alert.alertLogin(msg, viewController: self)
-                } else if code == 200 {
-                    if msg == "You are currently logged in from your iPhone Simulator. Logging in on this device will log you out from your other device. Would you like to proceed?" {
-                        self.alert.overWrite(msg, viewController: self)
-                    }else {
-                        var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
-                        dispatch_after(time, dispatch_get_main_queue()) {
-                            self.performSegueWithIdentifier("toScanner", sender: self.btnLogin)
-                        }
-                        println("-------->>>>>> \(msg)")
-                    }
-                }else {
-                    println("ERROR")
-                }
-        }
-    }
     
+//    func dummyLogin() {
+//        
+//        if txtUsername.text == "" || txtPassword.text == "" {
+//            alert.showAlertView("Account not found", message: "", viewController: self)
+//        }else if txtUsername.text != userName || txtPassword.text != password {
+//            alert.showAlertView("Account not found", message: "", viewController: self)
+//        }else {
+//            performSegueWithIdentifier("toScanner", sender: self.btnLogin)
+//        }
+//        
+//    }
+
     
 }
 
