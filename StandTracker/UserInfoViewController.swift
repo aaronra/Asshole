@@ -32,11 +32,11 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
         super.viewDidLoad()
         allAboutUI()
         
-//        txtAnswer1.delegate = self
-//        txtAnswer2.delegate = self
-//        txtAnswer3.delegate = self
-//        txtAnswer4.delegate = self
-//        txtAnswer5.delegate = self
+        txtAnswer1.delegate = self
+        txtAnswer2.delegate = self
+        txtAnswer3.delegate = self
+        txtAnswer4.delegate = self
+        txtAnswer5.delegate = self
         
         txtAnswer1.tag = 1
         
@@ -44,17 +44,20 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = false
         scrollView.addGestureRecognizer(tapGesture)
-        
-        
-        if txtAnswer1.tag == 1 {
-            println("selectde")
-        }
-        
+    
     }
     
     
-    
-    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        if txtAnswer1.selected {
+            println("sasasas")
+        }else if txtAnswer2.selected {
+            println("123345")
+        }
+        
+        return true
+    }
     
     func allAboutUI() {
         uiView.backgroundColor = UIColor(hex: 0x0C46A0)

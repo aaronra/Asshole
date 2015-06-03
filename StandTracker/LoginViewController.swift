@@ -17,12 +17,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
     
-    let secureID = "manager"
     let deviceName = UIDevice.currentDevice().name
     let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
-    var salt = "5d534e77a8c480d924bb75dd46a216bc08a587a7"
     
-    var loginURL = "http://ep.test.ozaccom.com.au/app_content/ajax/public.ashx?type=stand_tracker&op=staff_login&"
+    var loginURL = "http://ep.test.ozaccom.com.au/app_content/ajax/stand_tracker.ashx"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +32,11 @@ class LoginViewController: UIViewController {
         scrollView.addGestureRecognizer(tapGesture)
         
         println("Changeme123".sha1())
-        
+
+        println(deviceID)
+
+        println(deviceName)
+
     }
     
     
@@ -92,38 +94,32 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func actionLogin(sender: AnyObject) {
+
         if ConnectionDetector.isConnectedToNetwork() {
-//            loginfunc()
+            loginfunc()
         }else {
              alert.alertLogin("No Internet Connection", viewController: self)
         }
     }
     
-//    func loginfunc() {
-//        if txtUsername.text == "" || txtPassword.text == "" {
-//            alert.showAlertView("Account not found", message: "", viewController: self)
-//        }else if txtUsername.text != userName || txtPassword.text != password {
-//            alert.showAlertView("Account not found", message: "", viewController: self)
-//        }else {
-//            JsonToRealm.postLogin(["":""],url: loginURL+"username=\(txtUsername.text)&password=\(txtPassword.text)") { (code: String, msg: String, sessionID: String, clientID: String) -> () in
-//                
-//                if code == "error" {
-//                    println(msg)
-//                    self.alert.alertLogin(msg, viewController: self)
-//                } else if code == "success" {
-//                    var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
-//                    dispatch_after(time, dispatch_get_main_queue()) {
-//                        self.performSegueWithIdentifier("toScanner", sender: self.btnLogin)
-//                    }
-//                }else {
-//                    println("ERROR")
-//                }
-//            }
-//        }
-//        
-//    }
-    
-    
+    func loginfunc() {
+        
+        JsonToRealm.postLogin(["op":"staff_login", "username":txtUsername.text, "password":txtPassword.text.sha1(),"device_id":deviceID, "device_name":deviceName],url: loginURL) { (code: Int, msg: String, sessionID: String, clientID: String) -> () in
+            
+            if code == 500 {
+                println(msg)
+                self.alert.alertLogin(msg, viewController: self)
+            } else if code == 200 {
+                var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
+                dispatch_after(time, dispatch_get_main_queue()) {
+                    self.performSegueWithIdentifier("toScanner", sender: self.btnLogin)
+                }
+            }else {
+                println("ERROR")
+            }
+        }
+        
+    }
     
 //    func dummyLogin() {
 //        

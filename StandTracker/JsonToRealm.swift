@@ -11,7 +11,7 @@ import Realm
 
 public class JsonToRealm {
    
-    class func postLogin(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: String, msg: String, sessionID: String, clientID: String) -> ()) {
+    class func postLogin(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: Int, msg: String, sessionID: String, clientID: String) -> ()) {
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
@@ -33,26 +33,28 @@ public class JsonToRealm {
                 println(err!.localizedDescription)
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 println("Error could not parse JSON: '\(jsonStr!.description)'")
-                postCompleted(code: "500 Error", msg: "Error", sessionID: "", clientID: "")
+                postCompleted(code: 500, msg: "Error", sessionID: "", clientID: "")
             }else {
+
+                println(json)
                 
-                if let parseJSON = json {
-                    if let code = parseJSON["code"] as? String {
-                        if let errorMsg = parseJSON["message"] as? String {
-                            if let sesID = parseJSON["sessionID"] as? String {
-                                if let cliID = parseJSON["clientID"] as? String {
-                                    postCompleted(code: code, msg: errorMsg, sessionID: sesID, clientID: cliID)
-                                }
-                            }
-                        }
-                    }
-                    
-                }else {
-                    
-                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("Error could not parse JSON: \(jsonStr)")
-                    postCompleted(code: "500 Error", msg: "Error", sessionID: "", clientID: "")
-                }
+//                if let parseJSON = json {
+//                    if let code = parseJSON["code"] as? Int {
+//                        if let errorMsg = parseJSON["message"] as? String {
+//                            if let sesID = parseJSON["sessionID"] as? String {
+//                                if let cliID = parseJSON["clientID"] as? String {
+//                                    postCompleted(code: code, msg: errorMsg, sessionID: sesID, clientID: cliID)
+//                                }
+//                            }
+//                        }
+//                    }
+//                    
+//                }else {
+//                    
+//                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+//                    println("Error could not parse JSON: \(jsonStr)")
+//                    postCompleted(code: 500, msg: "Error", sessionID: "", clientID: "")
+//                }
             }
             
         })
@@ -124,4 +126,11 @@ public class JsonToRealm {
         })
         task.resume()
     }
+    
+    
 }
+
+
+
+
+
