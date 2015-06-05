@@ -104,12 +104,30 @@ class LoginViewController: UIViewController {
     
     func loginfunc() {
         
-        JsonToRealm.postLogin(["op":"staff_login", "username":txtUsername.text, "password":txtPassword.text.sha1(),"device_id":deviceID, "device_name":deviceName],url: loginURL) { (code: Int, msg: String, sessionID: String, clientID: String) -> () in
+        JsonToRealm.postLogin(["op":"staff_login",
+                               "username":txtUsername.text,
+                               "password":txtPassword.text.sha1(),
+                               "device_id":deviceID,
+                               "device_name":deviceName],
+                                url: loginURL) { (code: Int, msg: String) -> () in
+            
+            println("code \(code)")
+            println("message \(msg)")
+//            println("session \(sessionID)")
+//            println("ExhibitorID \(exhiID)")
+            
             
             if code == 500 {
                 println(msg)
                 self.alert.alertLogin(msg, viewController: self)
             } else if code == 200 {
+                
+                
+                if msg.lowercaseString.rangeOfString("?") != nil {
+                    println("exists")
+                }
+
+                
                 var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
                 dispatch_after(time, dispatch_get_main_queue()) {
                     self.performSegueWithIdentifier("toScanner", sender: self.btnLogin)
