@@ -17,7 +17,7 @@ class AlertDialogs: NSObject, UIAlertViewDelegate {
         switch UIDevice.currentDevice().systemVersion.compare("8.0.0", options: NSStringCompareOptions.NumericSearch) {
         case .OrderedSame, .OrderedDescending:
             println("8 above")
-            var alertController = UIAlertController(title: "Cloudstaff Team Manager", message: apiMessage, preferredStyle: .Alert)
+            var alertController = UIAlertController(title: "Lead Tracker", message: apiMessage, preferredStyle: .Alert)
             let ok = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
             })
             alertController.addAction(ok)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UIAlertViewDelegate {
 
     var alert = AlertDialogs()
     
@@ -22,6 +22,10 @@ class LoginViewController: UIViewController {
     
     var loginURL = "http://ep.test.ozaccom.com.au/app_content/ajax/stand_tracker.ashx"
     
+    var company = ""
+    var name = ""
+    var logo = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         allAboutUI()
@@ -30,12 +34,6 @@ class LoginViewController: UIViewController {
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = false
         scrollView.addGestureRecognizer(tapGesture)
-        
-        println("Changeme123".sha1())
-
-        println(deviceID)
-
-        println(deviceName)
 
     }
     
@@ -109,47 +107,85 @@ class LoginViewController: UIViewController {
                                "password":txtPassword.text.sha1(),
                                "device_id":deviceID,
                                "device_name":deviceName],
-                                url: loginURL) { (code: Int, msg: String) -> () in
+                                url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, primaryExh: String, accessEnabled: String, companyName: String, eventCode: String, eventTitle: String, eventLogo: String ) -> () in
             
-            println("code \(code)")
-            println("message \(msg)")
-//            println("session \(sessionID)")
-//            println("ExhibitorID \(exhiID)")
-            
-            
-            if code == 500 {
-                println(msg)
+            self.company = companyName
+            self.name = ("\(fName) \(lName)")
+            self.logo = eventLogo
+                                    
+            if code == "error" {
                 self.alert.alertLogin(msg, viewController: self)
-            } else if code == 200 {
-                
-                
-                if msg.lowercaseString.rangeOfString("?") != nil {
-                    println("exists")
+            } else if code == "success" {
+                var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
+                dispatch_after(time, dispatch_get_main_queue()) {
+                    self.performSegueWithIdentifier("toScanner", sender: self.btnLogin)
                 }
-
+            } else if code == "confirm" {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.showAlertView("Lead Tracker", message: msg, viewController: self)
+                })
+            } else if code == "Server Error" {
+                    self.alert.alertLogin(msg, viewController: self)
+            }
+        
+        }
+    }
+    
+    func confirmLogin() {
+        JsonToRealm.postLogin(["op":"staff_login",
+            "username":txtUsername.text,
+            "password":txtPassword.text.sha1(),
+            "device_id":deviceID,
+            "device_name":deviceName,
+            "overwrite": 1],
+            url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, primaryExh: String, accessEnabled: String, companyName: String, eventCode: String, eventTitle: String, eventLogo: String ) -> () in
+                
+                self.company = companyName
+                self.name = ("\(fName) \(lName)")
+                self.logo = eventLogo
                 
                 var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
                 dispatch_after(time, dispatch_get_main_queue()) {
                     self.performSegueWithIdentifier("toScanner", sender: self.btnLogin)
                 }
-            }else {
-                println("ERROR")
-            }
         }
         
     }
     
-//    func dummyLogin() {
-//        
-//        if txtUsername.text == "" || txtPassword.text == "" {
-//            alert.showAlertView("Account not found", message: "", viewController: self)
-//        }else if txtUsername.text != userName || txtPassword.text != password {
-//            alert.showAlertView("Account not found", message: "", viewController: self)
-//        }else {
-//            performSegueWithIdentifier("toScanner", sender: self.btnLogin)
-//        }
-//        
-//    }
+    
+    // ALERT WITH TEXTFIELD FOR iOs7 and iOs8
+    func showAlertView(title: String, message: String, viewController: UIViewController) {
+        var alert = UIAlertView()
+        alert.delegate = self
+        alert.title = title
+        alert.message = message
+        alert.addButtonWithTitle("Yes")
+        alert.addButtonWithTitle("No")
+        alert.show()
+    }
+    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        switch buttonIndex {
+        case 0:
+            confirmLogin()
+            break;
+        case 1:
+            println("CANCEL \(buttonIndex)")
+            break;
+        default: ()
+        println("DEFAULT \(buttonIndex)")
+        }
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toScanner" {
+            let scannerVController : ScannerContainerViewController = segue.destinationViewController as! ScannerContainerViewController
+            scannerVController.company = company
+            scannerVController.name = name
+            scannerVController.logo = ("http://ep.test.ozaccom.com.au/\(logo)")
+            
+        }
+    }
 
     
 }

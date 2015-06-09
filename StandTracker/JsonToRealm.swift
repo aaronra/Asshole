@@ -13,7 +13,7 @@ import Realm
 public class JsonToRealm {
     
    
-    class func postLogin(params : Dictionary<String, String!>, url : String, postCompleted : (code: Int, msg: String) -> ()) {
+    class func postLogin(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: String, msg: String, session_id: String, fName: String, lName: String, primaryExh: String, accessEnabled: String, companyName: String, eventCode: String, eventTitle: String, eventLogo: String ) -> ()) {
         
         
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
@@ -32,6 +32,7 @@ public class JsonToRealm {
 
         var task = session.dataTaskWithRequest(request, completionHandler: { data, response, error -> Void in
             println("Response: \(response)")
+            
 
             var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
             println(strData!)
@@ -45,14 +46,15 @@ public class JsonToRealm {
                 println("Error--->>>>> \(err!.localizedDescription)")
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 println("Error could not parse JSON: \(jsonStr!.description)")
-                postCompleted(code: 500, msg: "Error")
+                postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", primaryExh: "", accessEnabled: "", companyName: "", eventCode: "", eventTitle: "", eventLogo: "" )
             }else {
                 
                 if let parseJSON = json {
-                    let code = parseJSON["code"] as? Int
+                    let code = parseJSON["status"] as? String
                     var message = parseJSON["message"] as? String
                     let session = parseJSON["session_id"] as? String
                     let result = parseJSON["result"] as? NSDictionary
+                    
                     if let parseResult = result {
                         
                         let exhibitorID =       parseResult["ExhibitorId"] as? String
@@ -70,30 +72,24 @@ public class JsonToRealm {
                         let eventTitle =        parseResult["EventTitle"] as? String
                         let eventLogo =         parseResult["EventLogo"] as? String
                         
-                        println("code \(code)")
-                        println("message \(msg)")
-
+                        postCompleted(code: code!, msg: message!, session_id: session!, fName: fName!, lName: lName!, primaryExh: primaryExhibitor!, accessEnabled: accessEnabled!, companyName: exhiCompName!, eventCode: eventCode!, eventTitle: eventTitle!, eventLogo: eventLogo!)
                         
-                        postCompleted(code: code!, msg: message!)
-                        
+                    }else {
+                        postCompleted(code: code!, msg: message!, session_id: "", fName: "", lName: "", primaryExh: "", accessEnabled: "", companyName: "", eventCode: "", eventTitle: "", eventLogo: "" )
                     }
+      
+                    
                 }else {
                     let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                     println("Error could not parse JSON: \(jsonStr)")
-                    postCompleted(code: 500, msg: "Error")
+                    postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", primaryExh: "", accessEnabled: "", companyName: "", eventCode: "", eventTitle: "", eventLogo: "" )
                 }
-
-
             }
             
         })
         
-        
-        
         task.resume()
     }
-    
-    
     
     class func fetchData(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: String, details: [String], sessionID: String, clientID: String) -> ()) {
         
