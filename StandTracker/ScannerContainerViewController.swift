@@ -19,6 +19,11 @@ class ScannerContainerViewController: UIViewController {
     
     var company = ""
     var name = ""
+    var exhibitor_id = ""
+    var session_id = ""
+    var event_id = ""
+    var company_id = ""
+    
     
     var imageCache = [String : UIImage]()
     var logo = ""

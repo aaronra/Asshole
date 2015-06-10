@@ -144,11 +144,17 @@ class LoginViewController: UIViewController, UIAlertViewDelegate {
             "device_id":deviceID,
             "device_name":deviceName,
             "overwrite": 1],
-            url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, primaryExh: String, accessEnabled: String, companyName: String, eventCode: String, eventTitle: String, eventLogo: String ) -> () in
+            url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String ) -> () in
                 
                 self.company = companyName
                 self.name = ("\(fName) \(lName)")
                 self.logo = eventLogo
+                
+                println("----->>> \(exhibitorId)")
+                println("----->>> \(session_id)")
+                println("----->>> \(eventID)")
+                println("----->>> \(companyId)")
+                //            println("----->>> \()")
                 
                 var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
                 dispatch_after(time, dispatch_get_main_queue()) {
