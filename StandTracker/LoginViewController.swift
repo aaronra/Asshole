@@ -107,11 +107,17 @@ class LoginViewController: UIViewController, UIAlertViewDelegate {
                                "password":txtPassword.text.sha1(),
                                "device_id":deviceID,
                                "device_name":deviceName],
-                                url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, primaryExh: String, accessEnabled: String, companyName: String, eventCode: String, eventTitle: String, eventLogo: String ) -> () in
+                                url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String ) -> () in
             
             self.company = companyName
             self.name = ("\(fName) \(lName)")
             self.logo = eventLogo
+                                    
+            println("----->>> \(exhibitorId)")
+            println("----->>> \(session_id)")
+            println("----->>> \(eventID)")
+            println("----->>> \(companyId)")
+//            println("----->>> \()")
                                     
             if code == "error" {
                 self.alert.alertLogin(msg, viewController: self)

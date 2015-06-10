@@ -13,7 +13,7 @@ import Realm
 public class JsonToRealm {
     
    
-    class func postLogin(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: String, msg: String, session_id: String, fName: String, lName: String, primaryExh: String, accessEnabled: String, companyName: String, eventCode: String, eventTitle: String, eventLogo: String ) -> ()) {
+    class func postLogin(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String ) -> ()) {
         
         
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
@@ -46,7 +46,8 @@ public class JsonToRealm {
                 println("Error--->>>>> \(err!.localizedDescription)")
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 println("Error could not parse JSON: \(jsonStr!.description)")
-                postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", primaryExh: "", accessEnabled: "", companyName: "", eventCode: "", eventTitle: "", eventLogo: "" )
+                postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "" )
+                
             }else {
                 
                 if let parseJSON = json {
@@ -72,17 +73,17 @@ public class JsonToRealm {
                         let eventTitle =        parseResult["EventTitle"] as? String
                         let eventLogo =         parseResult["EventLogo"] as? String
                         
-                        postCompleted(code: code!, msg: message!, session_id: session!, fName: fName!, lName: lName!, primaryExh: primaryExhibitor!, accessEnabled: accessEnabled!, companyName: exhiCompName!, eventCode: eventCode!, eventTitle: eventTitle!, eventLogo: eventLogo!)
+                        postCompleted(code: code!, msg: message!, session_id: session!, fName: fName!, lName: lName!, exhibitorId: exhibitorID!, eventID: eventID!, companyId: exhiCompID!, companyName: exhiCompName!, eventTitle: eventTitle!, eventLogo: eventLogo! )
                         
                     }else {
-                        postCompleted(code: code!, msg: message!, session_id: "", fName: "", lName: "", primaryExh: "", accessEnabled: "", companyName: "", eventCode: "", eventTitle: "", eventLogo: "" )
+                        postCompleted(code: code!, msg: message!, session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "" )
                     }
-      
+                    
                     
                 }else {
                     let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                     println("Error could not parse JSON: \(jsonStr)")
-                    postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", primaryExh: "", accessEnabled: "", companyName: "", eventCode: "", eventTitle: "", eventLogo: "" )
+                    postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "" )
                 }
             }
             
