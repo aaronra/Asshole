@@ -108,8 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				9CDF29451B0ACF8F00CA896B /* UserInfoViewController.swift */,
-				9CB64C4D1B0DA5F400F5294B /* QuestionViewController.swift */,
 				9CF9952B1B13FA3D009F015A /* EditQuestionViewController.swift */,
+				9CB64C4D1B0DA5F400F5294B /* QuestionViewController.swift */,
 				9CB64C481B0D6DBD00F5294B /* CellDetails.swift */,
 			);
 			name = DelegateDetails;
@@ -140,10 +140,9 @@
 			children = (
 				9CDD81B11B004BEE00670CFE /* AppDelegate.swift */,
 				9CDD81B31B004BEE00670CFE /* LoginViewController.swift */,
-				9CF21B571B09B36D0009F91D /* ScannerContainerViewController.swift */,
-				9CEA15D91B05A173006D5706 /* BarCodeScanner.swift */,
 				9CF21B531B0989250009F91D /* AlertDialogs.swift */,
 				9CF995291B13F1E4009F015A /* PopOver.swift */,
+				9CEDDA4B1B29C379003B945A /* Scanner */,
 				9CB64C4A1B0D6EA400F5294B /* DelegateDetails */,
 				9CF21B521B096B470009F91D /* Extensions */,
 				9CF21B511B096A8F0009F91D /* HTTPFunctions */,
@@ -180,6 +179,15 @@
 				9CDD81C61B004BEE00670CFE /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9CEDDA4B1B29C379003B945A /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				9CF21B571B09B36D0009F91D /* ScannerContainerViewController.swift */,
+				9CEA15D91B05A173006D5706 /* BarCodeScanner.swift */,
+			);
+			name = Scanner;
 			sourceTree = "<group>";
 		};
 		9CF21B4E1B0962CF0009F91D /* Encryptor */ = {

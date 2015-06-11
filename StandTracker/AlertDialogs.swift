@@ -46,6 +46,7 @@ class AlertDialogs: NSObject, UIAlertViewDelegate {
         var alert = UIAlertView()
         alert.delegate = self
         alert.title = title
+        alert.message = message
         alert.addButtonWithTitle("OK")
 
         alert.show()

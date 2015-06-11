@@ -13,7 +13,7 @@ import Realm
 public class JsonToRealm {
     
    
-    class func postLogin(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String ) -> ()) {
+    class func postLogin(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String, q1: String, q2: String, q3: String, q4: String, q5: String) -> ()) {
         
         
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
@@ -46,7 +46,7 @@ public class JsonToRealm {
                 println("Error--->>>>> \(err!.localizedDescription)")
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 println("Error could not parse JSON: \(jsonStr!.description)")
-                postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "" )
+                postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "", q1: "", q2: "", q3: "", q4: "", q5: "" )
                 
             }else {
                 
@@ -73,17 +73,23 @@ public class JsonToRealm {
                         let eventTitle =        parseResult["EventTitle"] as? String
                         let eventLogo =         parseResult["EventLogo"] as? String
                         
-                        postCompleted(code: code!, msg: message!, session_id: session!, fName: fName!, lName: lName!, exhibitorId: exhibitorID!, eventID: eventID!, companyId: exhiCompID!, companyName: exhiCompName!, eventTitle: eventTitle!, eventLogo: eventLogo! )
+                        let q1 =                parseResult["Note1Q"] as? String
+                        let q2 =                parseResult["Note2Q"] as? String
+                        let q3 =                parseResult["Note3Q"] as? String
+                        let q4 =                parseResult["Note4Q"] as? String
+                        let q5 =                parseResult["Note5Q"] as? String
+                        
+                        postCompleted(code: code!, msg: message!, session_id: session!, fName: fName!, lName: lName!, exhibitorId: exhibitorID!, eventID: eventID!, companyId: exhiCompID!, companyName: exhiCompName!, eventTitle: eventTitle!, eventLogo: eventLogo!, q1: q1!, q2: q2!, q3: q3!, q4: q4!, q5: q5!)
                         
                     }else {
-                        postCompleted(code: code!, msg: message!, session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "" )
+                        postCompleted(code: code!, msg: message!, session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "", q1: "", q2: "", q3: "", q4: "", q5: "")
                     }
                     
                     
                 }else {
                     let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                     println("Error could not parse JSON: \(jsonStr)")
-                    postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "" )
+                    postCompleted(code: "Server Error", msg: "Please try Again later.", session_id: "", fName: "", lName: "", exhibitorId: "", eventID: "", companyId: "", companyName: "", eventTitle: "", eventLogo: "", q1: "", q2: "", q3: "", q4: "", q5: "")
                 }
             }
             
@@ -92,16 +98,23 @@ public class JsonToRealm {
         task.resume()
     }
     
-    class func fetchData(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (code: String, details: [String], sessionID: String, clientID: String) -> ()) {
+    
+
+    class func fetchData(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (status: String, msg: String, fName: String, lName: String, orgName: String, position: String, mobile: String, note1: String, note2: String, note3: String, note4: String, note5: String) -> ()) {
         
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
-        
         var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        var bodyData = ""
+        
+        for param in params {
+            bodyData += "\(param.0)=\(param.1)&"
+        }
+        
+        println(bodyData)
+        
+        request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             println("Response: \(response)")
@@ -111,51 +124,169 @@ public class JsonToRealm {
             
             var msg = "No message"
             
-            // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
             if(err != nil) {
                 println(err!.localizedDescription)
                 let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                 println("Error could not parse JSON: '\(jsonStr!.description)'")
-                postCompleted(code: "Error", details: ["Error"], sessionID: "", clientID: "")
+                postCompleted(status: "Server Error", msg: "Can't get data", fName: "", lName: "", orgName: "", position: "", mobile: "", note1: "", note2: "", note3: "", note4: "", note5: "")
+                
             }else {
-                // The JSONObjectWithData constructor didn't return an error. But, we should still
-                // check and make sure that json has a value using optional binding.
+                
                 if let parseJSON = json {
-                    // Okay, the parsedJSON is here, let's get the value for 'success' out of it
-                    if let code = parseJSON["status"] as? String {
-
-                        let result = parseJSON["result"] as? NSDictionary
-                        var newArray = Array<String>()
+                    let status = parseJSON["status"] as? String
+                    var message = parseJSON["message"] as? String
+                    let result = parseJSON["result"] as? NSDictionary
+                    
+                    if let parseResult = result {
                         
-                        if let parseResult = result {
-                            let firstName = parseResult["FirstName"] as? String
-                            let lastName = parseResult["LastName"] as? String
-                            let organisation = parseResult["Organisation"] as? String
-                            let position = parseResult["Position"] as? String
-                            let mobile = parseResult["MobilePhone"] as? String
-                            
-                            newArray.append(firstName!)
-                            newArray.append(lastName!)
-                            newArray.append(organisation!)
-                            newArray.append(position!)
-                            newArray.append(mobile!)
-                            
-                            postCompleted(code: code, details: newArray, sessionID: "", clientID: "")
-                            
-                        }
+                        let fName =     parseResult["FirstName"] as? String
+                        let lName =     parseResult["LastName"] as? String
+                        let orgName =   parseResult["Organisation"] as? String
+                        let position =  parseResult["Position"] as? String
+                        let mobile =    parseResult["MobilePhone"] as? String
+                        let note1 =     parseResult["Note1"] as? String
+                        let note2 =     parseResult["Note2"] as? String
+                        let note3 =     parseResult["Note3"] as? String
+                        let note4 =     parseResult["Note4"] as? String
+                        let note5 =     parseResult["Note5"] as? String
+                        
+                        postCompleted(status: status!, msg: message!, fName: fName!, lName: lName!, orgName: orgName!, position: position!, mobile: mobile!, note1: note1!, note2: note2!, note3: note3!, note4: note4!, note5: note5!)
+                        
+                    }else {
+                        postCompleted(status: status!, msg: message!, fName: "", lName: "", orgName: "", position: "", mobile: "", note1: "", note2: "", note3: "", note4: "", note5: "")
                     }
                     
-                    
                 }else {
-                    // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
                     let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
                     println("Error could not parse JSON: \(jsonStr)")
+                    postCompleted(status: "Server Error", msg: "Can't get data", fName: "", lName: "", orgName: "", position: "", mobile: "", note1: "", note2: "", note3: "", note4: "", note5: "")
                 }
             }
         })
         task.resume()
     }
     
+    
+    class func postQuestion(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (status: String, msg: String, q1: String, q2: String, q3: String, q4: String, q5: String) -> ()) {
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        var err: NSError?
+        var bodyData = ""
+        
+        for param in params {
+            bodyData += "\(param.0)=\(param.1)&"
+        }
+        
+        println(bodyData)
+        
+        request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            var err: NSError?
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: &err) as? NSDictionary
+            
+            var msg = "No message"
+            
+            if(err != nil) {
+                println(err!.localizedDescription)
+                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("Error could not parse JSON: '\(jsonStr!.description)'")
+                postCompleted(status: "Server Error", msg: "Can't get data", q1: "", q2: "", q3: "", q4: "", q5: "")
+                
+            }else {
+                
+                if let parseJSON = json {
+                    let status = parseJSON["status"] as? String
+                    var message = parseJSON["message"] as? String
+                    var result = parseJSON["result"] as? NSDictionary
+                    
+                    if let parseResult = result {
+                        
+                        let q1 =     parseResult["Note1Q"] as? String
+                        let q2 =     parseResult["Note2Q"] as? String
+                        let q3 =     parseResult["Note3Q"] as? String
+                        let q4 =     parseResult["Note4Q"] as? String
+                        let q5 =     parseResult["Note5Q"] as? String
+                        
+                        postCompleted(status: status!, msg: message!, q1: q1!, q2: q2!, q3: q3!, q4: q4!, q5: q5!)
+                    }else {
+                        postCompleted(status: status!, msg: message!, q1: "", q2: "", q3: "", q4: "", q5: "")
+                    }
+                    
+                }else {
+                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    println("Error could not parse JSON: \(jsonStr)")
+                    postCompleted(status: "Server Error", msg: "Can't get data", q1: "", q2: "", q3: "", q4: "", q5: "")
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    
+    class func postAnswer(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (status: String, msg: String) -> ()) {
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        var err: NSError?
+        var bodyData = ""
+        
+        for param in params {
+            bodyData += "\(param.0)=\(param.1)&"
+        }
+        
+        println(bodyData)
+        
+        request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            var err: NSError?
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: &err) as? NSDictionary
+            
+            var msg = "No message"
+            
+            if(err != nil) {
+                println(err!.localizedDescription)
+                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("Error could not parse JSON: '\(jsonStr!.description)'")
+                postCompleted(status: "Server Error", msg: "Can't get data")
+                
+            }else {
+                
+                if let parseJSON = json {
+                    let status = parseJSON["status"] as? String
+                    var message = parseJSON["message"] as? String
+                    var result = parseJSON["result"] as? NSDictionary
+                    
+                    if let parseResult = result {
+                        
+                        let q1 =     parseResult["Note1Q"] as? String
+                        let q2 =     parseResult["Note2Q"] as? String
+                        let q3 =     parseResult["Note3Q"] as? String
+                        let q4 =     parseResult["Note4Q"] as? String
+                        let q5 =     parseResult["Note5Q"] as? String
+                        
+                        postCompleted(status: status!, msg: message!)
+                    }else {
+                        postCompleted(status: status!, msg: message!)
+                    }
+                    
+                }else {
+                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    println("Error could not parse JSON: \(jsonStr)")
+                    postCompleted(status: "Server Error", msg: "Can't get data")
+                }
+            }
+        })
+        task.resume()
+    }
     
 }
 

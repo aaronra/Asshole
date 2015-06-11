@@ -40,13 +40,11 @@ class PopOver: UIViewController, UITableViewDataSource, UITableViewDelegate, UIP
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if fromRoot == "left" {
             return leftData.count
         }else {
             return rightData.count
         }
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

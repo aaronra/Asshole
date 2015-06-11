@@ -21,10 +21,21 @@ class LoginViewController: UIViewController, UIAlertViewDelegate {
     let deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
     
     var loginURL = "http://ep.test.ozaccom.com.au/app_content/ajax/stand_tracker.ashx"
+    let paramKey = NSUserDefaults.standardUserDefaults()
     
     var company = ""
     var name = ""
     var logo = ""
+    var exhibitor_id = ""
+    var session_id = ""
+    var event_id = ""
+    var company_id = ""
+    var q1 = ""
+    var q2 = ""
+    var q3 = ""
+    var q4 = ""
+    var q5 = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,17 +118,20 @@ class LoginViewController: UIViewController, UIAlertViewDelegate {
                                "password":txtPassword.text.sha1(),
                                "device_id":deviceID,
                                "device_name":deviceName],
-                                url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String ) -> () in
+                                url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String, q1: String, q2: String, q3: String, q4: String, q5: String) -> () in
             
             self.company = companyName
             self.name = ("\(fName) \(lName)")
             self.logo = eventLogo
-                                    
-            println("----->>> \(exhibitorId)")
-            println("----->>> \(session_id)")
-            println("----->>> \(eventID)")
-            println("----->>> \(companyId)")
-//            println("----->>> \()")
+            self.exhibitor_id = exhibitorId
+            self.session_id = session_id
+            self.event_id = eventID
+            self.company_id = companyId
+            self.q1 = q1
+            self.q2 = q2
+            self.q3 = q3
+            self.q4 = q4
+            self.q5 = q5
                                     
             if code == "error" {
                 self.alert.alertLogin(msg, viewController: self)
@@ -144,24 +158,26 @@ class LoginViewController: UIViewController, UIAlertViewDelegate {
             "device_id":deviceID,
             "device_name":deviceName,
             "overwrite": 1],
-            url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String ) -> () in
+            url: loginURL) { (code: String, msg: String, session_id: String, fName: String, lName: String, exhibitorId: String, eventID: String, companyId: String, companyName: String, eventTitle: String, eventLogo: String, q1: String, q2: String, q3: String, q4: String, q5: String) -> () in
                 
                 self.company = companyName
                 self.name = ("\(fName) \(lName)")
                 self.logo = eventLogo
-                
-                println("----->>> \(exhibitorId)")
-                println("----->>> \(session_id)")
-                println("----->>> \(eventID)")
-                println("----->>> \(companyId)")
-                //            println("----->>> \()")
+                self.exhibitor_id = exhibitorId
+                self.session_id = session_id
+                self.event_id = eventID
+                self.company_id = companyId
+                self.q1 = q1
+                self.q2 = q2
+                self.q3 = q3
+                self.q4 = q4
+                self.q5 = q5
                 
                 var time = dispatch_time(DISPATCH_TIME_NOW, 1 * Int64(NSEC_PER_SEC))
                 dispatch_after(time, dispatch_get_main_queue()) {
                     self.performSegueWithIdentifier("toScanner", sender: self.btnLogin)
                 }
         }
-        
     }
     
     
@@ -192,13 +208,11 @@ class LoginViewController: UIViewController, UIAlertViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toScanner" {
             let scannerVController : ScannerContainerViewController = segue.destinationViewController as! ScannerContainerViewController
-            scannerVController.company = company
-            scannerVController.name = name
-            scannerVController.logo = ("http://ep.test.ozaccom.com.au/\(logo)")
-            
+            let paramValue = paramKey.stringForKey("params")
+            paramKey.setValue("\(exhibitor_id):\(session_id):\(event_id):\(company_id):\(company):\(name):\(logo):\(q1):\(q2):\(q3):\(q4):\(q5)", forKey: "params")
+
+            println("--------------->>>> \(session_id)")
         }
     }
-
-    
 }
 

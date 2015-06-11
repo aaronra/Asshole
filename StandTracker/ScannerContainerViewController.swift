@@ -17,20 +17,19 @@ class ScannerContainerViewController: UIViewController {
     @IBOutlet weak var txtOwner: UILabel!
     @IBOutlet weak var btnMenu: UIButton!
     
-    var company = ""
-    var name = ""
-    var exhibitor_id = ""
-    var session_id = ""
-    var event_id = ""
-    var company_id = ""
-    
     
     var imageCache = [String : UIImage]()
-    var logo = ""
     
+    let paramKey = NSUserDefaults.standardUserDefaults()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-       allAboutUI()
+        allAboutUI()
+        
+        let paramValue = paramKey.stringForKey("params")
+        let tags = paramValue!.componentsSeparatedByString(":")
+        let company = tags[4]
+        let name = tags[5]
         
         txtCompany.text = company
         txtOwner.text = name
@@ -40,11 +39,13 @@ class ScannerContainerViewController: UIViewController {
     
     func parseLogo() {
         
+        let paramValue = paramKey.stringForKey("params")
+        let tags = paramValue!.componentsSeparatedByString(":")
+        let logo = ("http://ep.test.ozaccom.com.au/\(tags[6])")
+
         imgEpLogo?.image = UIImage(named: "ep_logo")
         let urlString = logo
         var image = self.imageCache[urlString]
-        
-        println("----->>>>> \(urlString)")
         
         if( image == nil ) {
             // If the image does not exist, we need to download it
@@ -55,8 +56,6 @@ class ScannerContainerViewController: UIViewController {
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
                 if error == nil {
                     image = UIImage(data: data)
-                    
-                    println("--->> image \(image)")
                     
                     // Store the image in to our cache
                     self.imageCache[urlString] = image
@@ -83,7 +82,20 @@ class ScannerContainerViewController: UIViewController {
         
         txtCompany.textColor = UIColor.whiteColor()
         txtOwner.textColor = UIColor.whiteColor()
-        btnMenu.hidden = true
+//        btnMenu.hidden = true
 
+    }
+    
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toBarScanner" {
+            let barScanner : BarCodeScanner = segue.destinationViewController as! BarCodeScanner
+            
+        }else if segue.identifier == "toAddQuestion" {
+            let navigationController  = segue.destinationViewController as! UINavigationController
+            var editQusstion = navigationController.topViewController as! EditQuestionViewController
+
+        }
     }
 }

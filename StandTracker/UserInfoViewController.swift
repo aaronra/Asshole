@@ -10,23 +10,38 @@ import UIKit
 
 class UserInfoViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
 
-    
+    var alert = AlertDialogs()
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var uiView: UIView!
     @IBOutlet weak var tblView: UITableView!
 
+    @IBOutlet weak var lblq1: UILabel!
+    @IBOutlet weak var lblq2: UILabel!
+    @IBOutlet weak var lblq3: UILabel!
+    @IBOutlet weak var lblq4: UILabel!
+    @IBOutlet weak var lblq5: UILabel!
+    
     @IBOutlet weak var txtAnswer1: UITextField!
     @IBOutlet weak var txtAnswer2: UITextField!
     @IBOutlet weak var txtAnswer3: UITextField!
     @IBOutlet weak var txtAnswer4: UITextField!
     @IBOutlet weak var txtAnswer5: UITextField!
     
+    var q1 = ""
+    var q2 = ""
+    var q3 = ""
+    var q4 = ""
+    var q5 = ""
+    
     var scannedData = ""
     
+    var postURL = "http://ep.test.ozaccom.com.au/app_content/ajax/stand_tracker.ashx"
+    let paramKey = NSUserDefaults.standardUserDefaults()
     var arrayOfDetail = ["First Name", "Last Name", "Company", "Position", "Mobile"]
-//    var arrayOfInfo = Array<String>()
-    var arrayOfInfo = ["Sample name", "Sample lastname", "sample Company", "Security", "0000 0 00 00"]
-
+    var arrayOfInfo = Array<String>()
+    var userID = ""
+    
+//    var arrayOfInfo = ["Sample name", "Sample lastname", "sample Company", "Security", "0000 0 00 00"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +59,27 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = false
         scrollView.addGestureRecognizer(tapGesture)
+        
+        
+        displayQuestion()
+        
+    }
+    
+    
+    func displayQuestion() {
+        let paramValue = paramKey.stringForKey("params")
+        let tags = paramValue!.componentsSeparatedByString(":")
+        let q1 = tags[7]
+        let q2 = tags[8]
+        let q3 = tags[9]
+        let q4 = tags[10]
+        let q5 = tags[11]
+        
+        lblq1.text = q1
+        lblq2.text = q2
+        lblq3.text = q3
+        lblq4.text = q4
+        lblq5.text = q5
     
     }
     
@@ -143,7 +179,37 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
         txtAnswer5.resignFirstResponder()
         self.scrollView.setContentOffset(CGPointZero, animated: true)
     }
+    
 
-
+    @IBAction func btnClear(sender: AnyObject) {
+        txtAnswer1.text = ""
+        txtAnswer2.text = ""
+        txtAnswer3.text = ""
+        txtAnswer4.text = ""
+        txtAnswer5.text = ""
+    }
+    
+    @IBAction func btnSave(sender: AnyObject) {
+        
+        let paramValue = paramKey.stringForKey("params")
+        let tags = paramValue!.componentsSeparatedByString(":")
+        let exhID = tags[0]
+        let sesID = tags[1]
+        let eveID = tags[2]
+        let comID = tags[3]
+        let comp =  tags[4]
+        let name =  tags[5]
+        let logo =  tags[6]
+        
+        JsonToRealm.postAnswer(["op":"update_user_track", "exhibitor_id": exhID, "session_id": sesID, "event_id": eveID, "company_id": comID, "user_id": self.userID, "answer_1": txtAnswer1.text, "answer_2": txtAnswer2.text, "answer_3": txtAnswer3.text, "answer_4": txtAnswer4.text, "answer_5": txtAnswer5.text, "notes": "sample note"], url: postURL) { (status: String, msg: String) -> () in
+            
+            println("-------->>>>> \(status)")
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.alert.showAlertView("Lead Tracker", message: status, viewController: self)
+            })
+        }
+        
+    }
     
 }

@@ -19,7 +19,13 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
     var qrCodeFrameView:UIView?
     var scannedData = ""
     var fetchedArray = Array<String>()
+    var userID = ""
     let settKey = NSUserDefaults.standardUserDefaults()
+    
+    var fetchURL = "http://ep.test.ozaccom.com.au/app_content/ajax/stand_tracker.ashx"
+    
+    let paramKey = NSUserDefaults.standardUserDefaults()
+    let userInfoKey = NSUserDefaults.standardUserDefaults()
     
     // Added to support different barcodes
     let supportedBarCodes = [AVMetadataObjectTypeUPCECode,
@@ -84,6 +90,7 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
         qrCodeFrameView?.layer.borderWidth = 2
         view.addSubview(qrCodeFrameView!)
         view.bringSubviewToFront(qrCodeFrameView!)
+
     }
     
 
@@ -120,7 +127,6 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
         var alert = UIAlertView()
         alert.delegate = self
         alert.title = title
-//        alert.message = message
         alert.addButtonWithTitle("OK")
         alert.show()
         
@@ -131,9 +137,6 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
     internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {
         case 0:
-            
-            
-            
         performSegueWithIdentifier("toUserInfo", sender: self)
             break;
         default: ()
@@ -143,26 +146,38 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
     
     func fetchData(id: String) {
         
-        JsonToRealm.fetchData(["":""], url: "http://ep.test.ozaccom.com.au/app_content/ajax/public.ashx?type=stand_tracker&op=delegate_view&event_id=66&user_id=\(id)") { (code: String, details: [String], sessionID: String, clientID: String) -> () in
-            self.fetchedArray = details
+        let paramValue = paramKey.stringForKey("params")
+        let tags = paramValue!.componentsSeparatedByString(":")
+        let exhID = tags[0]
+        let sesID = tags[1]
+        let eveID = tags[2]
+        let comID = tags[3]
+        userID = id
+        
+        
+        JsonToRealm.fetchData(["op":"view_user_track", "exhibitor_id": exhID, "session_id": sesID, "event_id": eveID, "company_id": comID, "user_id": id], url: fetchURL) { (status: String, msg: String, fName: String, lName: String, orgName: String, position: String, mobile: String, note1: String, note2: String, note3: String, note4: String, note5: String) -> () in
+            self.fetchedArray.append(fName)
+            self.fetchedArray.append(lName)
+            self.fetchedArray.append(orgName)
+            self.fetchedArray.append(position)
+            self.fetchedArray.append(mobile)
+            
+            let userValue = self.userInfoKey.stringForKey("userInfo")
+            self.userInfoKey.setValue("\(fName):\(lName):\(orgName):\(position):\(mobile)", forKey: "userInfo")
         }
     }
-    
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toUserInfo" {
             let navigationController = segue.destinationViewController as! UINavigationController
             let userDetailController = navigationController.topViewController as! UserInfoViewController
-            userDetailController.scannedData = scannedData
             userDetailController.arrayOfInfo = fetchedArray
+            userDetailController.userID = userID
             
-            println("---fetch--->>> \(fetchedArray)")
         }
     }
     
-    
-
     func allAboutUI() {
         vcScanner.backgroundColor = UIColor(hex: 0x0C46A0)
     }
