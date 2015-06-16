@@ -97,8 +97,7 @@ public class JsonToRealm {
         
         task.resume()
     }
-    
-    
+
 
     class func fetchData(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (status: String, msg: String, fName: String, lName: String, orgName: String, position: String, mobile: String, note1: String, note2: String, note3: String, note4: String, note5: String) -> ()) {
         
@@ -165,7 +164,6 @@ public class JsonToRealm {
         })
         task.resume()
     }
-    
     
     class func postQuestion(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (status: String, msg: String, q1: String, q2: String, q3: String, q4: String, q5: String) -> ()) {
         

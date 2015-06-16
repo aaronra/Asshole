@@ -212,4 +212,14 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITextField
         
     }
     
+    
+    @IBAction func btnAddNotes(sender: AnyObject) {
+        
+        println("dawdfasdfgdsfgdsafgadsf")
+        
+        
+    }
+    
+    
+    
 }

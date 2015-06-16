@@ -14,6 +14,8 @@ class CellDetails: UITableViewCell {
     @IBOutlet weak var txtDelegateDetails: UILabel!
     @IBOutlet weak var question: UILabel!
     @IBOutlet weak var txtAnswer: UITextField!
+    
+    
 
    
     override func awakeFromNib() {

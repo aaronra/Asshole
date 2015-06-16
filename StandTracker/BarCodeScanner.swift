@@ -152,6 +152,7 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
         let sesID = tags[1]
         let eveID = tags[2]
         let comID = tags[3]
+        
         userID = id
         
         

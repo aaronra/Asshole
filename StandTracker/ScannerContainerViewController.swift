@@ -73,7 +73,6 @@ class ScannerContainerViewController: UIViewController {
                 self.imgEpLogo.image = image
             })
         }
-        
     }
     
     func allAboutUI() {
@@ -85,7 +84,6 @@ class ScannerContainerViewController: UIViewController {
 //        btnMenu.hidden = true
 
     }
-    
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
