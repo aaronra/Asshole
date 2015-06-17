@@ -10,26 +10,29 @@ import UIKit
 
 class UserDetailsContainerViewController: UIViewController {
 
+    @IBOutlet var uiView: UIView!
+    
+    var arrayOfInfo = Array<String>()
+    var userID = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        allAboutUI()
+        
+        println("---->>>> \(arrayOfInfo)")
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func allAboutUI() {
+//        uiView.backgroundColor = UIColor(hex: 0x0C46A0)
+        var image = UIImage(named: "logoName")
+        var imageView = UIImageView(image: image)
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 25)
+        navigationItem.titleView = imageView
     }
-    */
 
 }

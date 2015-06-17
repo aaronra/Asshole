@@ -169,15 +169,18 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "toUserInfo" {
-            let navigationController = segue.destinationViewController as! UINavigationController
-            let userDetailController = navigationController.topViewController as! UserInfoViewController
-            userDetailController.arrayOfInfo = fetchedArray
-            userDetailController.userID = userID
-            
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "toUserInfo" {
+//            
+////            let userContainerController : UserDetailsTableViewController = segue.destinationViewController as! UserDetailsTableViewController
+//            
+//            let navigationController = segue.destinationViewController as! UINavigationController
+//            let userContainerController = navigationController.topViewController as! UserDetailsTableViewController
+////            userContainerController.arrayOfInfo = fetchedArray
+////            userContainerController.userID = userID
+//            
+//        }
+//    }
     
     func allAboutUI() {
         vcScanner.backgroundColor = UIColor(hex: 0x0C46A0)

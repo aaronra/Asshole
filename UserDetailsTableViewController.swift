@@ -32,6 +32,17 @@ class UserDetailsTableViewController: UITableViewController {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
+        
+        allAboutUI()
+    }
+    
+    
+    func allAboutUI() {
+        var image = UIImage(named: "logoName")
+        var imageView = UIImageView(image: image)
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 25)
+        navigationItem.titleView = imageView
     }
 
 
@@ -46,9 +57,13 @@ class UserDetailsTableViewController: UITableViewController {
             returnValue = 5
         } else if (section == 1) {
             returnValue = 5
+            
+
         }
         return returnValue
     }
+    
+    
     
     func hideKeyboard() {
         txtAns1.resignFirstResponder()
@@ -58,6 +73,47 @@ class UserDetailsTableViewController: UITableViewController {
         txtAns5.resignFirstResponder()
 
     }
+    
+    
+    @IBAction func done(sender: AnyObject) {
+        
+        let optionOneText = "Clear"
+        let optionTwoText = "Save"
+        let optionThreeText = "Add Note"
+        let cancelButtonTitle = "Cancel"
+        
+        let actionsheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        
+        let Clear = UIAlertAction(title: optionOneText, style: UIAlertActionStyle.Default) { (ClearSelected) -> Void in
+            println("Clear")
+        }
+        let Save =  UIAlertAction(title: optionTwoText, style: UIAlertActionStyle.Default) { (SaveSelected) -> Void in
+            println("Save")
+        }
+        
+        let Addnote =  UIAlertAction(title: optionThreeText, style: UIAlertActionStyle.Default) { (AddnoteSelected) -> Void in
+            println("Addnote")
+            self.performSegueWithIdentifier("toAddnotes", sender: self)
+            
+        }
+
+        let Cancel = UIAlertAction(title: cancelButtonTitle, style: UIAlertActionStyle.Cancel){ (CancelSelected) -> Void in
+            println("Cancel")
+        }
+        
+        actionsheet.addAction(Clear)
+        actionsheet.addAction(Save)
+        actionsheet.addAction(Addnote)
+        actionsheet.addAction(Cancel)
+        
+        self.presentViewController(actionsheet, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+
 
 
 

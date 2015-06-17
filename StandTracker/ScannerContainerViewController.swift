@@ -76,8 +76,8 @@ class ScannerContainerViewController: UIViewController {
     }
     
     func allAboutUI() {
-        vcContainer.backgroundColor = UIColor(hex: 0x0C46A0)
-        UINavigationBar.appearance().barTintColor = UIColor(hex: 0x0C46A0)
+        vcContainer.backgroundColor = UIColor(hex: 0x157bdb)
+        UINavigationBar.appearance().barTintColor = UIColor(hex: 0x157bdb)
         
         txtCompany.textColor = UIColor.whiteColor()
         txtOwner.textColor = UIColor.whiteColor()
