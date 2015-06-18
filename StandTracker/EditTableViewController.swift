@@ -9,27 +9,47 @@
 import UIKit
 
 class EditTableViewController: UITableViewController {
+    
+    
+    @IBOutlet weak var txtQ1: UITextField!
+    @IBOutlet weak var txtQ2: UITextField!
+    @IBOutlet weak var txtQ3: UITextField!
+    @IBOutlet weak var txtQ4: UITextField!
+    @IBOutlet weak var txtQ5: UITextField!
+    
+    var postURL = "http://ep.test.ozaccom.com.au/app_content/ajax/stand_tracker.ashx"
+    let paramKey = NSUserDefaults.standardUserDefaults()
+    let userInfoKey = NSUserDefaults.standardUserDefaults()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        displayQuestion()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func displayQuestion() {
+        
+        let paramValue = paramKey.stringForKey("params")
+        let tags = paramValue!.componentsSeparatedByString(":")
+        let q1 = tags[7]
+        let q2 = tags[8]
+        let q3 = tags[9]
+        let q4 = tags[10]
+        let q5 = tags[11]
+        
+        txtQ1.text = q1
+        txtQ2.text = q2
+        txtQ3.text = q3
+        txtQ4.text = q4
+        txtQ5.text = q5
+        
+        
     }
 
-    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
+
         return 1
     }
 
@@ -42,62 +62,67 @@ class EditTableViewController: UITableViewController {
         return returnValue
     }
     
-   
     
+    @IBAction func done(sender: AnyObject) {
+        
+        showAlertView("LeadTracker", message: "Update Questions?", viewController: self)
 
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
-        return cell
+        
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    
+    
+    func showAlertView(title: String, message: String, viewController: UIViewController) {
+        var alert = UIAlertView()
+        alert.delegate = self
+        alert.title = title
+        alert.message = message
+        alert.addButtonWithTitle("Yes")
+        alert.addButtonWithTitle("No")
+        alert.show()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        switch buttonIndex {
+        case 0:
+            updateQuestion()
+            performSegueWithIdentifier("toScanner", sender: self)
+            break;
+        case 1:
+            break;
+        default: ()
+        println("DEFAULT \(buttonIndex)")
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
+    
+    func updateQuestion() {
+        
+        let paramValue = paramKey.stringForKey("params")
+        let tags = paramValue!.componentsSeparatedByString(":")
+        let exhID = tags[0]
+        let sesID = tags[1]
+        let eveID = tags[2]
+        let comID = tags[3]
+        let comp =  tags[4]
+        let name =  tags[5]
+        let logo =  tags[6]
+        
+        JsonToRealm.postQuestion(["op":"update_questions", "exhibitor_id": exhID, "session_id": sesID, "event_id": eveID, "company_id": comID, "question_1": txtQ1.text, "question_2": txtQ2.text, "question_3": txtQ3.text, "question_4": txtQ4.text, "question_5": txtQ5.text], url: postURL) { (status: String, msg: String, q1: String, q2: String, q3: String, q4: String, q5: String) -> () in
+            
+            println(status)
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                let paramValue = self.paramKey.stringForKey("params")
+                self.paramKey.setValue("\(exhID):\(sesID):\(eveID):\(comID):\(comp):\(name):\(logo):\(q1):\(q2):\(q3):\(q4):\(q5)", forKey: "params")
+                
+            })
+            
+        }
+        
     }
-    */
+    
+    
+    
+   
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

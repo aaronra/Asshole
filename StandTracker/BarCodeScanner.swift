@@ -157,11 +157,6 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
         
         
         JsonToRealm.fetchData(["op":"view_user_track", "exhibitor_id": exhID, "session_id": sesID, "event_id": eveID, "company_id": comID, "user_id": id], url: fetchURL) { (status: String, msg: String, fName: String, lName: String, orgName: String, position: String, mobile: String, note1: String, note2: String, note3: String, note4: String, note5: String) -> () in
-            self.fetchedArray.append(fName)
-            self.fetchedArray.append(lName)
-            self.fetchedArray.append(orgName)
-            self.fetchedArray.append(position)
-            self.fetchedArray.append(mobile)
             
             let userValue = self.userInfoKey.stringForKey("userInfo")
             self.userInfoKey.setValue("\(fName):\(lName):\(orgName):\(position):\(mobile)", forKey: "userInfo")
@@ -169,18 +164,16 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
     }
     
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "toUserInfo" {
-//            
-////            let userContainerController : UserDetailsTableViewController = segue.destinationViewController as! UserDetailsTableViewController
-//            
-//            let navigationController = segue.destinationViewController as! UINavigationController
-//            let userContainerController = navigationController.topViewController as! UserDetailsTableViewController
-////            userContainerController.arrayOfInfo = fetchedArray
-////            userContainerController.userID = userID
-//            
-//        }
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toUserInfo" {
+            
+            
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let userContainerController = navigationController.topViewController as! UserDetailsTableViewController
+            userContainerController.userID = userID
+            
+        }
+    }
     
     func allAboutUI() {
         vcScanner.backgroundColor = UIColor(hex: 0x0C46A0)

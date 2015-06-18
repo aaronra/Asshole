@@ -20,10 +20,17 @@ class NotesTableViewController: UITableViewController, UITextViewDelegate, UITex
     @IBOutlet weak var txtCompany: UILabel!
     @IBOutlet weak var txtPosition: UILabel!
     @IBOutlet weak var txtMobile: UILabel!
-
     
-//    var arrayOfDetail = ["First Name", "Last Name", "Company", "Position", "Mobile"]
-    var arrayOfInfo = ["Sample name", "Sample lastname", "sample Company", "Security", "0000 0 00 00"]
+    var userID = ""
+    var ans1 = ""
+    var ans2 = ""
+    var ans3 = ""
+    var ans4 = ""
+    var ans5 = ""
+    
+    var postURL = "http://ep.test.ozaccom.com.au/app_content/ajax/stand_tracker.ashx"
+    let paramKey = NSUserDefaults.standardUserDefaults()
+    let userInfoKey = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +39,9 @@ class NotesTableViewController: UITableViewController, UITextViewDelegate, UITex
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
         
-        populateDetails()
+        displayUserDetails()
+        
+        
         
     }
     
@@ -51,20 +60,102 @@ class NotesTableViewController: UITableViewController, UITextViewDelegate, UITex
         }
         return returnValue
     }
-
     
-    func populateDetails() {
+    func displayUserDetails() {
         
-        txtFname.text = arrayOfInfo[0]
-        txtLname.text = arrayOfInfo[1]
-        txtCompany.text = arrayOfInfo[2]
-        txtPosition.text = arrayOfInfo[3]
-        txtMobile.text = arrayOfInfo[4]
+        let userDetailValue = userInfoKey.stringForKey("userInfo")
+        let tags = userDetailValue!.componentsSeparatedByString(":")
+        let fname = tags[0]
+        let lname = tags[1]
+        let company = tags[2]
+        let position = tags[3]
+        let mobile = tags[4]
+        
+        txtFname.text = fname
+        txtLname.text = lname
+        txtCompany.text = company
+        txtPosition.text = position
+        txtMobile.text = mobile
+        
+        
     }
+    
     
     func hideKeyboard() {
         txtAddNote.resignFirstResponder()
     }
+    
+    
+    @IBAction func done(sender: AnyObject) {
+        
+        let optionTwoText = "Save"
+        let optionOneText = "Clear"
+        let cancelButtonTitle = "Cancel"
+        
+        let actionsheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let Save =  UIAlertAction(title: optionTwoText, style: UIAlertActionStyle.Default) { (SaveSelected) -> Void in
+            println("Save")
+            
+            let paramValue = self.paramKey.stringForKey("params")
+            let tags = paramValue!.componentsSeparatedByString(":")
+            let exhID = tags[0]
+            let sesID = tags[1]
+            let eveID = tags[2]
+            let comID = tags[3]
+            let comp =  tags[4]
+            let name =  tags[5]
+            let logo =  tags[6]
+            
+            JsonToRealm.postAnswer(["op":"update_user_track", "exhibitor_id": exhID, "session_id": sesID, "event_id": eveID, "company_id": comID, "user_id": self.userID, "answer_1": self.ans1, "answer_2": self.ans2, "answer_3": self.ans3, "answer_4": self.ans4, "answer_5": self.ans5, "notes": self.txtAddNote.text], url: self.postURL) { (status: String, msg: String) -> () in
+                
+                println("-------->>>>> \(status)")
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.showAlertView("Lead Tracker", message: "Successfully Saved!", viewController: self)
+                })
+            }
+            
+        }
+        
+        
+        let Clear = UIAlertAction(title: optionOneText, style: UIAlertActionStyle.Default) { (ClearSelected) -> Void in
+            self.txtAddNote.text = ""
+        }
+        
+        
+        let Cancel = UIAlertAction(title: cancelButtonTitle, style: UIAlertActionStyle.Cancel){ (CancelSelected) -> Void in
+            println("Cancel")
+        }
+        
+        actionsheet.addAction(Save)
+        actionsheet.addAction(Clear)
+        actionsheet.addAction(Cancel)
+        
+        self.presentViewController(actionsheet, animated: true, completion: nil)
+        
+    }
+    
+    
+    // ALERT WITH TEXTFIELD FOR iOs7 and iOs8
+    func showAlertView(title: String, message: String, viewController: UIViewController) {
+        var alert = UIAlertView()
+        alert.delegate = self
+        alert.title = title
+        alert.message = message
+        alert.addButtonWithTitle("OK")
+        alert.show()
+    }
+    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        switch buttonIndex {
+        case 0:
+            performSegueWithIdentifier("toScanner", sender: self)
+            break;
+        default: ()
+        println("DEFAULT \(buttonIndex)")
+        }
+    }
+    
 
     
 }
