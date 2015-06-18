@@ -50,13 +50,13 @@ class LoginViewController: UIViewController, UIAlertViewDelegate {
     
     
     func allAboutUI() {
-        btnLogin.backgroundColor = UIColor(hex: 0x0C46A0)
+        btnLogin.backgroundColor = UIColor(hex: 0x157bdb)
         btnLogin.setTitleColor(UIColor(hex: 0xffffff), forState: .Normal)
         btnLogin.layer.cornerRadius = 5
         btnLogin.layer.borderWidth = 1.5
         btnLogin.layer.borderColor = UIColor.whiteColor().CGColor
         
-        scrollView.backgroundColor = UIColor(hex: 0x0C46A0)
+        scrollView.backgroundColor = UIColor(hex: 0x157bdb)
     }
     
     override func viewWillAppear(animated: Bool) {

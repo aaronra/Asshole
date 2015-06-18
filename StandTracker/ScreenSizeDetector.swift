@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuestionViewController: UIViewController, UITableViewDelegate {
+class ScreenSizeDetector: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var tblView: UITableView!
     var arrayOfQuestion = ["q1", "q2", "q3", "q4", "q5"]
@@ -38,18 +38,16 @@ class QuestionViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayOfQuestion.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: CellDetails = tableView.dequeueReusableCellWithIdentifier("questionCell") as! CellDetails
-        cell.question.text = arrayOfQuestion[indexPath.row]
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        return cell
-    }
+//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell: CellDetails = tableView.dequeueReusableCellWithIdentifier("questionCell") as! CellDetails
+//        cell.question.text = arrayOfQuestion[indexPath.row]
+//        cell.selectionStyle = UITableViewCellSelectionStyle.None
+//        return cell
+//    }
     
 }

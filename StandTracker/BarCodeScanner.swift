@@ -93,6 +93,10 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
 
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        captureSession?.stopRunning()
+    }
+    
 
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection:
         AVCaptureConnection!) {

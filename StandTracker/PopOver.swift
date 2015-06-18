@@ -11,7 +11,7 @@ import UIKit
 class PopOver: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
     
     
-    var root = UserInfoViewController()
+//    var root = UserInfoViewController()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -65,9 +65,9 @@ class PopOver: UIViewController, UITableViewDataSource, UITableViewDelegate, UIP
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let row = indexPath.row
-        root.itemSelected(tableView.cellForRowAtIndexPath(indexPath)!.textLabel!.text!)
+//        root.itemSelected(tableView.cellForRowAtIndexPath(indexPath)!.textLabel!.text!)
         dismissViewControllerAnimated(true, completion: nil)
-        root.viewWillAppear(true)
+//        root.viewWillAppear(true)
     }
     
     

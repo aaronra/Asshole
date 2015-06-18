@@ -17,23 +17,25 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="eNK-aZ-ivu">
-                    <rect key="frame" x="149" y="87" width="182" height="191"/>
+                    <rect key="frame" x="30" y="87" width="421" height="191"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="182" id="HZX-a7-RJs"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="421" id="HZX-a7-RJs"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="191" id="XVd-ki-Z0W"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.27718620653854265" blue="0.62844626358165878" alpha="1" colorSpace="calibratedRGB"/>
-            <color key="tintColor" red="0.0" green="0.3438067159" blue="0.72468828910000005" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.082352941176470587" green="0.4823529411764706" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
                 <constraint firstAttribute="centerX" secondItem="eNK-aZ-ivu" secondAttribute="centerX" id="UNO-M0-b2R"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
                 <constraint firstItem="eNK-aZ-ivu" firstAttribute="leading" relation="lessThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="149" id="e65-4e-VRw"/>
+                <constraint firstItem="eNK-aZ-ivu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="kNA-Mn-A19"/>
                 <constraint firstAttribute="bottom" secondItem="eNK-aZ-ivu" secondAttribute="bottom" constant="202" id="mIj-K6-ugG"/>
                 <constraint firstItem="eNK-aZ-ivu" firstAttribute="top" relation="lessThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" constant="127" id="unB-Fy-s7W"/>
+                <constraint firstAttribute="trailing" secondItem="eNK-aZ-ivu" secondAttribute="trailing" constant="29" id="xfP-gc-Xwm"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -41,6 +43,6 @@
         </view>
     </objects>
     <resources>
-        <image name="launchLogo" width="170" height="170"/>
+        <image name="launchLogo" width="140" height="60"/>
     </resources>
 </document>

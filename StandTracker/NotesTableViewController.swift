@@ -39,12 +39,18 @@ class NotesTableViewController: UITableViewController, UITextViewDelegate, UITex
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
         
+        allAboutUI()
         displayUserDetails()
-        
-        
         
     }
     
+    func allAboutUI() {
+        var image = UIImage(named: "logoName")
+        var imageView = UIImageView(image: image)
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 25)
+        navigationItem.titleView = imageView
+    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2

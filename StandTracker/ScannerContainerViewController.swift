@@ -92,7 +92,7 @@ class ScannerContainerViewController: UIViewController {
             
         }else if segue.identifier == "toAddQuestion" {
             let navigationController  = segue.destinationViewController as! UINavigationController
-            var editQusstion = navigationController.topViewController as! EditQuestionViewController
+//            var editQusstion = navigationController.topViewController as! EditQuestionViewController
 
         }
     }

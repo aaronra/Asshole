@@ -24,8 +24,17 @@ class EditTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        allAboutUI()
         displayQuestion()
+    }
+    
+    func allAboutUI() {
+        var image = UIImage(named: "logoName")
+        var imageView = UIImageView(image: image)
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 25)
+        navigationItem.titleView = imageView
     }
 
     func displayQuestion() {
