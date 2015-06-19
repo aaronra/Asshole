@@ -207,7 +207,11 @@ class LoginViewController: UIViewController, UIAlertViewDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toScanner" {
-            let scannerVController : ScannerContainerViewController = segue.destinationViewController as! ScannerContainerViewController
+            
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let scannerVController = navigationController.topViewController as! ScannerContainerViewController
+            
+//            let scannerVController : ScannerContainerViewController = segue.destinationViewController as! ScannerContainerViewController
             let paramValue = paramKey.stringForKey("params")
             paramKey.setValue("\(exhibitor_id):\(session_id):\(event_id):\(company_id):\(company):\(name):\(logo):\(q1):\(q2):\(q3):\(q4):\(q5)", forKey: "params")
 

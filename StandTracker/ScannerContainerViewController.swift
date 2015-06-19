@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScannerContainerViewController: UIViewController {
+class ScannerContainerViewController: UIViewController, SideBarDelegate {
 
 
     @IBOutlet weak var imgEpLogo: UIImageView!
@@ -21,6 +21,8 @@ class ScannerContainerViewController: UIViewController {
     var imageCache = [String : UIImage]()
     
     let paramKey = NSUserDefaults.standardUserDefaults()
+    
+    var sideBar:SideBar = SideBar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,14 @@ class ScannerContainerViewController: UIViewController {
         txtCompany.text = company
         txtOwner.text = name
         parseLogo()
+        
+        sideBar = SideBar(sourceView: self.view, menuItems:
+            ["dashboard",
+                "my team",
+                "ping",
+                "settings",
+                "log out"])
+        sideBar.delegate = self
         
     }
     
@@ -77,11 +87,14 @@ class ScannerContainerViewController: UIViewController {
     
     func allAboutUI() {
         vcContainer.backgroundColor = UIColor(hex: 0x157bdb)
-        UINavigationBar.appearance().barTintColor = UIColor(hex: 0x157bdb)
-        
         txtCompany.textColor = UIColor.whiteColor()
         txtOwner.textColor = UIColor.whiteColor()
-//        btnMenu.hidden = true
+        
+        var image = UIImage(named: "logoName")
+        var imageView = UIImageView(image: image)
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 25)
+        navigationItem.titleView = imageView
 
     }
     

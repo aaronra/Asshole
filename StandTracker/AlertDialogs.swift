@@ -41,14 +41,33 @@ class AlertDialogs: NSObject, UIAlertViewDelegate {
     }
 
     
+//    // ALERT WITH TEXTFIELD FOR iOs7 and iOs8
+//    func showAlertView(title: String, message: String, viewController: UIViewController) {
+//        var alert = UIAlertView()
+//        alert.delegate = self
+//        alert.title = title
+//        alert.message = message
+//        alert.addButtonWithTitle("OK")
+//
+//        alert.show()
+//    }
+//    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+//        switch buttonIndex {
+//        case 0:
+//            println("OK \(buttonIndex)")
+//            break;
+//        default: ()
+//        println("DEFAULT \(buttonIndex)")
+//        }
+//    }
+    
     // ALERT WITH TEXTFIELD FOR iOs7 and iOs8
-    func showAlertView(title: String, message: String, viewController: UIViewController) {
+    func showAlertCancel(title: String, message: String, viewController: UIViewController) {
         var alert = UIAlertView()
         alert.delegate = self
         alert.title = title
-        alert.message = message
         alert.addButtonWithTitle("OK")
-
+        
         alert.show()
     }
     internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {

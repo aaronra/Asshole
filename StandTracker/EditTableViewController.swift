@@ -25,6 +25,10 @@ class EditTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        tapGesture.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapGesture)
+        
         allAboutUI()
         displayQuestion()
     }
@@ -129,7 +133,14 @@ class EditTableViewController: UITableViewController {
         
     }
     
-    
+    func hideKeyboard() {
+        
+        txtQ1.resignFirstResponder()
+        txtQ2.resignFirstResponder()
+        txtQ3.resignFirstResponder()
+        txtQ4.resignFirstResponder()
+        txtQ5.resignFirstResponder()
+    }
     
    
 

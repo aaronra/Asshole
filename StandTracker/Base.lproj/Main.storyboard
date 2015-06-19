@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bqr-OT-RGL">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -521,12 +522,12 @@
                         <outlet property="txtLname" destination="XYD-dt-YnE" id="n3c-SN-Ptf"/>
                         <outlet property="txtMobile" destination="2RB-tC-Xhg" id="dVc-90-dp1"/>
                         <outlet property="txtPosition" destination="dGZ-yu-ENd" id="5h7-wU-VHy"/>
-                        <segue destination="b2a-am-7m6" kind="presentation" identifier="toScanner" id="y2h-lV-sVF"/>
+                        <segue destination="yka-Qj-oLh" kind="presentation" identifier="toScanner" id="y2h-lV-sVF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fBB-UC-ZC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7768" y="-3124.5"/>
+            <point key="canvasLocation" x="-7808" y="-3115.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uoe-AA-MDy">
@@ -672,7 +673,7 @@
                         <outlet property="scrollView" destination="gpb-qP-Rbq" id="xfK-sc-ghY"/>
                         <outlet property="txtPassword" destination="t7R-N3-VDS" id="5ae-D3-tH0"/>
                         <outlet property="txtUsername" destination="X7h-1X-lP1" id="Gkq-uX-iAC"/>
-                        <segue destination="b2a-am-7m6" kind="presentation" identifier="toScanner" modalTransitionStyle="crossDissolve" id="Uxs-Qq-iol"/>
+                        <segue destination="yka-Qj-oLh" kind="presentation" identifier="toScanner" modalTransitionStyle="crossDissolve" id="Uxs-Qq-iol"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EM1-Ip-7T5" sceneMemberID="firstResponder"/>
@@ -697,13 +698,6 @@
                                     <segue destination="rbR-qm-dJE" kind="embed" identifier="toBarScanner" id="Reb-ci-guX"/>
                                 </connections>
                             </containerView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoName" translatesAutoresizingMaskIntoConstraints="NO" id="Bc4-1e-yfq">
-                                <rect key="frame" x="217" y="36" width="166" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="A7H-Dh-Nq1"/>
-                                    <constraint firstAttribute="width" constant="166" id="Tvk-II-6wL"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Event Pallete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Xh-n5-qXR">
                                 <rect key="frame" x="16" y="216" width="568" height="24"/>
                                 <constraints>
@@ -724,20 +718,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYE-Yo-yz6">
-                                <rect key="frame" x="562" y="41" width="30" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="Nfi-h5-FQb">
-                                        <variation key="heightClass=regular" constant="37"/>
-                                    </constraint>
-                                </constraints>
-                                <state key="normal" image="edit_question">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="tcN-kU-RXe" kind="presentation" id="Hil-Vy-ezu"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="ep_logo" translatesAutoresizingMaskIntoConstraints="NO" id="j1k-mh-owB">
                                 <rect key="frame" x="250" y="96" width="100" height="100"/>
                                 <constraints>
@@ -750,45 +730,43 @@
                         </subviews>
                         <color key="backgroundColor" red="0.87050189389999999" green="0.87050189389999999" blue="0.87050189389999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="j1k-mh-owB" firstAttribute="top" secondItem="Bc4-1e-yfq" secondAttribute="bottom" constant="30" id="Acf-NP-QuW">
-                                <variation key="heightClass=regular" constant="28"/>
+                            <constraint firstItem="jUe-jo-9bV" firstAttribute="top" secondItem="TzV-wc-HqD" secondAttribute="bottom" constant="8" symbolic="YES" id="BS0-1S-Fib">
+                                <variation key="heightClass=regular" constant="8"/>
                             </constraint>
-                            <constraint firstItem="jUe-jo-9bV" firstAttribute="top" secondItem="TzV-wc-HqD" secondAttribute="bottom" constant="8" symbolic="YES" id="BS0-1S-Fib"/>
                             <constraint firstItem="3Xh-n5-qXR" firstAttribute="leading" secondItem="chm-Lx-tdg" secondAttribute="leadingMargin" id="D5M-EP-UcA"/>
                             <constraint firstItem="3Xh-n5-qXR" firstAttribute="trailing" secondItem="chm-Lx-tdg" secondAttribute="trailingMargin" id="G1v-de-jmu"/>
                             <constraint firstItem="jUe-jo-9bV" firstAttribute="centerX" secondItem="TzV-wc-HqD" secondAttribute="centerX" id="G3F-xH-IJD"/>
-                            <constraint firstItem="Bc4-1e-yfq" firstAttribute="top" secondItem="rBg-j3-8sv" secondAttribute="bottom" constant="16" id="LqC-sj-I8d"/>
-                            <constraint firstItem="LYE-Yo-yz6" firstAttribute="centerY" secondItem="Bc4-1e-yfq" secondAttribute="centerY" id="SS4-7x-sWX">
-                                <variation key="heightClass=regular" constant="-6.5"/>
-                            </constraint>
                             <constraint firstItem="3Xh-n5-qXR" firstAttribute="top" secondItem="j1k-mh-owB" secondAttribute="bottom" constant="20" id="V19-PI-Fcf">
-                                <variation key="heightClass=regular" constant="22"/>
+                                <variation key="heightClass=regular" constant="6"/>
                             </constraint>
-                            <constraint firstItem="TzV-wc-HqD" firstAttribute="top" secondItem="3Xh-n5-qXR" secondAttribute="bottom" constant="-1" id="VDm-6j-Eeb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LYE-Yo-yz6" secondAttribute="trailing" constant="-8" id="Vfd-UK-fo6"/>
+                            <constraint firstItem="TzV-wc-HqD" firstAttribute="top" secondItem="3Xh-n5-qXR" secondAttribute="bottom" constant="-1" id="VDm-6j-Eeb">
+                                <variation key="heightClass=regular" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="j1k-mh-owB" firstAttribute="top" secondItem="rBg-j3-8sv" secondAttribute="bottom" constant="8" symbolic="YES" id="ZnM-HK-49U"/>
                             <constraint firstItem="j1k-mh-owB" firstAttribute="centerX" secondItem="3Xh-n5-qXR" secondAttribute="centerX" id="aAM-FN-V1E"/>
                             <constraint firstItem="TzV-wc-HqD" firstAttribute="leading" secondItem="chm-Lx-tdg" secondAttribute="leadingMargin" id="bCF-kC-kgg"/>
                             <constraint firstItem="jUe-jo-9bV" firstAttribute="bottom" secondItem="4Zm-TW-ouK" secondAttribute="top" id="muF-UL-Oki"/>
                             <constraint firstItem="jUe-jo-9bV" firstAttribute="leading" secondItem="chm-Lx-tdg" secondAttribute="leading" id="pba-Yi-5eC"/>
-                            <constraint firstAttribute="centerX" secondItem="Bc4-1e-yfq" secondAttribute="centerX" id="xnp-oy-Shf"/>
                             <constraint firstItem="TzV-wc-HqD" firstAttribute="trailing" secondItem="chm-Lx-tdg" secondAttribute="trailingMargin" id="xyd-Ke-mHv"/>
-                            <constraint firstItem="LYE-Yo-yz6" firstAttribute="top" secondItem="rBg-j3-8sv" secondAttribute="bottom" constant="21" id="zYU-gC-KwN">
-                                <variation key="heightClass=regular" constant="8"/>
-                            </constraint>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="V19-PI-Fcf"/>
+                                <exclude reference="ZnM-HK-49U"/>
                                 <exclude reference="aAM-FN-V1E"/>
+                                <exclude reference="V19-PI-Fcf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="constraints">
-                                <include reference="V19-PI-Fcf"/>
+                                <include reference="ZnM-HK-49U"/>
                                 <include reference="aAM-FN-V1E"/>
+                                <include reference="V19-PI-Fcf"/>
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="EAv-uR-jUc">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="FgP-Sy-WuU"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="imgEpLogo" destination="j1k-mh-owB" id="rID-Fv-Sx2"/>
                         <outlet property="txtCompany" destination="3Xh-n5-qXR" id="off-AE-1bI"/>
@@ -798,7 +776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQb-fu-7nG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10030" y="-3127.5"/>
+            <point key="canvasLocation" x="-10070" y="-3118.5"/>
         </scene>
         <!--Bar Code Scanner-->
         <scene sceneID="t9f-AV-mkc">
@@ -820,7 +798,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZgM-Rq-a3a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10030" y="-2563.5"/>
+            <point key="canvasLocation" x="-10070" y="-2488.5"/>
         </scene>
         <!--User Details Table View Controller-->
         <scene sceneID="Lth-40-uOC">
@@ -1675,7 +1653,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="7ud-mY-Kfn">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="b2a-am-7m6" kind="presentation" identifier="toScanner" modalTransitionStyle="crossDissolve" id="F2Z-tf-coT"/>
+                                <segue destination="yka-Qj-oLh" kind="presentation" identifier="toScanner" modalTransitionStyle="crossDissolve" id="F2Z-tf-coT"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="DeK-cB-3Qc">
@@ -1707,7 +1685,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cCH-Fk-GKB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9292" y="-3127.5"/>
+            <point key="canvasLocation" x="-9332" y="-3118.5"/>
         </scene>
         <!--Edit Table View Controller-->
         <scene sceneID="hOS-WV-moi">
@@ -2136,7 +2114,7 @@
                     <navigationItem key="navigationItem" id="59c-jm-2eF">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="QZb-e6-wwN">
                             <connections>
-                                <segue destination="b2a-am-7m6" kind="presentation" modalTransitionStyle="crossDissolve" id="gI8-HZ-1B5"/>
+                                <segue destination="yka-Qj-oLh" kind="presentation" modalTransitionStyle="crossDissolve" id="gI8-HZ-1B5"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="Lmp-qK-awd">
@@ -2151,12 +2129,12 @@
                         <outlet property="txtQ3" destination="Wee-KU-o0i" id="1ma-MG-Vug"/>
                         <outlet property="txtQ4" destination="LQj-Tj-E24" id="HQe-XK-spw"/>
                         <outlet property="txtQ5" destination="RWA-O3-nk1" id="7MZ-2v-U2S"/>
-                        <segue destination="b2a-am-7m6" kind="presentation" identifier="toScanner" id="Sef-Te-DoT"/>
+                        <segue destination="yka-Qj-oLh" kind="presentation" identifier="toScanner" id="Sef-Te-DoT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iFD-z8-NK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8519" y="-3124.5"/>
+            <point key="canvasLocation" x="-8559" y="-3115.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="R7l-Sq-Mqw">
@@ -2194,15 +2172,32 @@
             </objects>
             <point key="canvasLocation" x="-8519" y="-3777"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XHo-E3-QxQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yka-Qj-oLh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8TY-yy-D20">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="b2a-am-7m6" kind="relationship" relationship="rootViewController" id="u7p-KM-8BM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AoR-1T-Fp5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-10070" y="-3772.5"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="edit_question" width="94" height="94"/>
         <image name="ep_logo" width="76" height="76"/>
         <image name="logo" width="166" height="166"/>
-        <image name="logoName" width="544" height="93"/>
+        <image name="menu" width="25" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="F2Z-tf-coT"/>
-        <segue reference="1mJ-dz-fHD"/>
+        <segue reference="SFI-2X-q4l"/>
+        <segue reference="Uxs-Qq-iol"/>
     </inferredMetricsTieBreakers>
 </document>

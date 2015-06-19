@@ -11,6 +11,7 @@ import AVFoundation
 
 class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate {
     
+    var alert = AlertDialogs()
     @IBOutlet var vcScanner: UIView!
     @IBOutlet var uiview: UIView!
     
@@ -119,7 +120,10 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
             
             if metadataObj.stringValue != nil {
                 if scannedData != metadataObj.stringValue {
-                    showAlertView("Scanned", message: metadataObj.stringValue, viewController: self)
+//                    showAlertView("Scanned", message: metadataObj.stringValue, viewController: self)
+                    
+                    fetchData(metadataObj.stringValue)
+                    
                     scannedData = metadataObj.stringValue
                     captureSession?.stopRunning()
                 }
@@ -127,25 +131,7 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
         }
     }
     
-    func showAlertView(title: String, message: String, viewController: UIViewController) {
-        var alert = UIAlertView()
-        alert.delegate = self
-        alert.title = title
-        alert.addButtonWithTitle("OK")
-        alert.show()
-        
-        fetchData(message)
     
-    }
-    
-    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        switch buttonIndex {
-        case 0:
-        performSegueWithIdentifier("toUserInfo", sender: self)
-            break;
-        default: ()
-        }
-    }
     
     
     func fetchData(id: String) {
@@ -162,15 +148,53 @@ class BarCodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate, 
         
         JsonToRealm.fetchData(["op":"view_user_track", "exhibitor_id": exhID, "session_id": sesID, "event_id": eveID, "company_id": comID, "user_id": id], url: fetchURL) { (status: String, msg: String, fName: String, lName: String, orgName: String, position: String, mobile: String, note1: String, note2: String, note3: String, note4: String, note5: String) -> () in
             
+            
+                if status == "success" {
+                    println("----------->>>> seuccess")
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.showAlertView("Scanned", message: "", viewController: self)
+                    })
+                    
+                }else {
+                    println("----------->>>> failed")
+                    dispatch_async(dispatch_get_main_queue(), {
+                    self.alert.showAlertCancel("Scanned Failed", message: "", viewController: self)
+                    self.captureSession?.startRunning()
+                    self.qrCodeFrameView?.hidden = true
+                    })
+                    
+                }
+            
+            self.qrCodeFrameView?.hidden = false
             let userValue = self.userInfoKey.stringForKey("userInfo")
             self.userInfoKey.setValue("\(fName):\(lName):\(orgName):\(position):\(mobile)", forKey: "userInfo")
         }
     }
     
+    func showAlertView(title: String, message: String, viewController: UIViewController) {
+        var alert = UIAlertView()
+        alert.delegate = self
+        alert.title = title
+        alert.addButtonWithTitle("OK")
+        alert.show()
+    
+    }
+
+    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        switch buttonIndex {
+        case 0:
+        performSegueWithIdentifier("toUserInfo", sender: self)
+            break;
+        default: ()
+        }
+    }
+    
+    
+    
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toUserInfo" {
-            
             
             let navigationController = segue.destinationViewController as! UINavigationController
             let userContainerController = navigationController.topViewController as! UserDetailsTableViewController
