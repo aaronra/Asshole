@@ -69,7 +69,7 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
         sideBarTableViewController.tableView.frame = sideBarContainerView.bounds
         sideBarTableViewController.tableView.clipsToBounds = false
         sideBarTableViewController.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-        sideBarTableViewController.tableView.backgroundColor = UIColor(hex: 0x1C98D5)
+        sideBarTableViewController.tableView.backgroundColor = UIColor(hex: 0x0C46A0)
         
         sideBarTableViewController.tableView.scrollsToTop  = false
         sideBarTableViewController.tableView.contentInset = UIEdgeInsetsMake(sideBarTableViewTopInset, 0, 0, 0)
@@ -77,7 +77,7 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
         sideBarTableViewController.tableView.reloadData()
         
         sideBarContainerView.addSubview(sideBarTableViewController.tableView)
-        sideBarContainerView.alpha = 0.85
+        sideBarContainerView.alpha = 0.90
         
     }
     

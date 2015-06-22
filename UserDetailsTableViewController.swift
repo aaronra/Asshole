@@ -77,7 +77,6 @@ class UserDetailsTableViewController: UITableViewController {
     }
     
 
-
     func displayUserDetails() {
         
         let userDetailValue = userInfoKey.stringForKey("userInfo")
@@ -176,6 +175,10 @@ class UserDetailsTableViewController: UITableViewController {
         actionsheet.addAction(Save)
         actionsheet.addAction(Addnote)
         actionsheet.addAction(Cancel)
+        
+        if let popoverController = actionsheet.popoverPresentationController {
+            popoverController.barButtonItem = sender as! UIBarButtonItem
+        }
         
         self.presentViewController(actionsheet, animated: true, completion: nil)
         

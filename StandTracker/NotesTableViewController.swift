@@ -138,6 +138,10 @@ class NotesTableViewController: UITableViewController, UITextViewDelegate, UITex
         actionsheet.addAction(Clear)
         actionsheet.addAction(Cancel)
         
+        if let popoverController = actionsheet.popoverPresentationController {
+            popoverController.barButtonItem = sender as! UIBarButtonItem
+        }
+        
         self.presentViewController(actionsheet, animated: true, completion: nil)
         
     }

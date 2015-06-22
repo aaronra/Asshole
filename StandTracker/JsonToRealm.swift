@@ -286,6 +286,35 @@ public class JsonToRealm {
         task.resume()
     }
     
+    
+    class func postSignOut(params : Dictionary<String, AnyObject!>, url : String, postCompleted : (status: String, msg: String) -> ()) {
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "POST"
+        var err: NSError?
+        var bodyData = ""
+        
+        for param in params {
+            bodyData += "\(param.0)=\(param.1)&"
+        }
+        
+        println(bodyData)
+        
+        request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            var err: NSError?
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: &err) as? NSDictionary
+            
+            var msg = "No message"
+
+        })
+        task.resume()
+    }
+    
 }
 
 

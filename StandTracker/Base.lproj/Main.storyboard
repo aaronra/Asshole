@@ -751,32 +751,45 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="V19-PI-Fcf"/>
                                 <exclude reference="ZnM-HK-49U"/>
                                 <exclude reference="aAM-FN-V1E"/>
-                                <exclude reference="V19-PI-Fcf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="constraints">
+                                <include reference="V19-PI-Fcf"/>
                                 <include reference="ZnM-HK-49U"/>
                                 <include reference="aAM-FN-V1E"/>
-                                <include reference="V19-PI-Fcf"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="EAv-uR-jUc">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="FgP-Sy-WuU"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="FgP-Sy-WuU">
+                            <connections>
+                                <action selector="menu:" destination="b2a-am-7m6" id="QeE-Mq-xWT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="menu" id="1cE-HX-RHJ">
+                            <connections>
+                                <action selector="rightMenu:" destination="b2a-am-7m6" id="B4X-Sz-zg9"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="imgEpLogo" destination="j1k-mh-owB" id="rID-Fv-Sx2"/>
+                        <outlet property="leftMenu" destination="FgP-Sy-WuU" id="u17-j4-fab"/>
+                        <outlet property="rightMenu" destination="1cE-HX-RHJ" id="E19-tG-b7s"/>
                         <outlet property="txtCompany" destination="3Xh-n5-qXR" id="off-AE-1bI"/>
                         <outlet property="txtOwner" destination="TzV-wc-HqD" id="Ixb-q7-FY1"/>
                         <outlet property="vcContainer" destination="chm-Lx-tdg" id="oUS-Hs-tqj"/>
+                        <segue destination="tcN-kU-RXe" kind="presentation" identifier="toEditQuestion" id="QQh-aj-djK"/>
+                        <segue destination="bqr-OT-RGL" kind="presentation" identifier="toLogin" modalTransitionStyle="crossDissolve" id="xY6-1M-5Ta"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQb-fu-7nG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10070" y="-3118.5"/>
+            <point key="canvasLocation" x="-10070" y="-3127.5"/>
         </scene>
         <!--Bar Code Scanner-->
         <scene sceneID="t9f-AV-mkc">
@@ -2134,7 +2147,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iFD-z8-NK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8559" y="-3115.5"/>
+            <point key="canvasLocation" x="-8519" y="-3118.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="R7l-Sq-Mqw">
@@ -2188,7 +2201,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AoR-1T-Fp5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10070" y="-3772.5"/>
+            <point key="canvasLocation" x="-10070" y="-3781.5"/>
         </scene>
     </scenes>
     <resources>
@@ -2197,7 +2210,7 @@
         <image name="menu" width="25" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SFI-2X-q4l"/>
         <segue reference="Uxs-Qq-iol"/>
+        <segue reference="SFI-2X-q4l"/>
     </inferredMetricsTieBreakers>
 </document>
